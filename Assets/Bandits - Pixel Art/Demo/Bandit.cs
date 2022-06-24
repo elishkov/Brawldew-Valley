@@ -70,4 +70,9 @@ public class Bandit : MonoBehaviour {
         else
             m_animator.SetInteger("AnimState", 0);
     }
+
+    public void TakeDamage()
+    {
+        m_animator.SetTrigger("Hurt");
+    }
 }
