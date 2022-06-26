@@ -1,39 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ToolCharacterController : MonoBehaviour
 {
-    Bandit bandit;
-    Rigidbody2D rgbd2;
-    Character character; 
+    private MovementController movementController;
+    private Rigidbody2D rgbd2;
+    private Character character;
+    private Animator animator;
+
+
     [SerializeField] long damagePerHit = 15;
     [SerializeField] float offsetDistance = 1f;
     [SerializeField] float sizeOfInteractableArea = 1.2f;
 
+    private bool attacking = false;
 
     private void Awake() 
     {
         character = GetComponent<Character>();
-        bandit = GetComponent<Bandit>();
+        movementController = GetComponent<MovementController>();
         rgbd2 = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void OnAttack(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown("space"))
+        attacking = context.action.triggered;
+        if (attacking)
         {
+            print($"attacking: {attacking}");
+            animator.SetTrigger("Attack");
             UseTool();
         }
     }
 
+    private void Update()
+    {
+       
+    }
+
     private void UseTool()
     {
-        Vector2 position = rgbd2.position + bandit.lastMotionVector * offsetDistance;
+        Vector2 position = rgbd2.position + movementController.lastMotionVector * offsetDistance;
         
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea);
 
-        print("attack!!!");
         foreach (Collider2D c in colliders)
         {
             ToolHit hit = c.GetComponent<ToolHit>();
