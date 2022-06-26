@@ -12,4 +12,5 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject player;
+    [SerializeField] public GameObject[] players;
 }

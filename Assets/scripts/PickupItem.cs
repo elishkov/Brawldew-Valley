@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    protected Transform player;
+    protected GameObject[] players;
     protected Character character;
 
     [SerializeField] float speed = 3f;
@@ -13,8 +13,7 @@ public class PickupItem : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.instance.player.transform;
-        character = GameManager.instance.player.GetComponent<Character>();
+        players = GameManager.instance.players;
     }
 
     private void Update()
@@ -25,23 +24,35 @@ public class PickupItem : MonoBehaviour
             Destroy(gameObject);
         }
 
-        float distance = Vector3.Distance(transform.position, player.position);
-        if (distance > pickupDistance)
+        float minDistance = float.MaxValue;
+        float distance;
+        GameObject closestPlayer = null;
+        foreach (var player in players)
+        {
+            distance = Vector3.Distance(transform.position, player.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestPlayer = player;
+            }
+
+        }
+        if (minDistance > pickupDistance)
             return;
 
         transform.position = Vector3.MoveTowards(
-            transform.position, 
-            player.position,
+            transform.position,
+            closestPlayer.transform.position,
             speed * Time.deltaTime
             );
 
-        if (distance < 0.1)
+        if (minDistance < 0.1)
         {
-            Pickup();
+            Pickup(closestPlayer.GetComponent<Character>());
         }
     }
 
-    protected virtual void Pickup()
+    protected virtual void Pickup(Character character)
     {
         Destroy(gameObject);
     }
