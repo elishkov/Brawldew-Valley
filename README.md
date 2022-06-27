@@ -1,6 +1,6 @@
 # Brawldew-Valley
 
-This is fun project to learn unity and experience with building a game
+This is a fun project to learn unity and experience with building a game.
 The idea is to create a 2 players hotseat brawler in 2D
 
 ## TODO
