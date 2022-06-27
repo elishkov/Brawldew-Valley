@@ -7,7 +7,7 @@ public class VCamController : MonoBehaviour
     [SerializeField] GameObject target;
     [SerializeField] GameObject vCam;
     [SerializeField] float minOrthographicSize = 2.5f;
-    [SerializeField] float maxOrthographicSize = 10f;
+    [SerializeField] float maxOrthographicSize = 20f;
     // Start is called before the first frame update
     void Start()
     {

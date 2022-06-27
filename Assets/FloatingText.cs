@@ -18,7 +18,6 @@ public class FloatingText : MonoBehaviour
         if (ttl == 0 || ttl_remaining > 0)
         {
             ttl_remaining -= 1;
-            print("tomiki");
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.02f, -1);
         }
         else

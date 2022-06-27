@@ -28,7 +28,6 @@ public class ToolCharacterController : MonoBehaviour
         attacking = context.action.triggered;
         if (attacking)
         {
-            print($"attacking: {attacking}");
             animator.SetTrigger("Attack");
             UseTool();
         }
