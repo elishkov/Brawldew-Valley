@@ -18,14 +18,13 @@ The idea is to create a 2 players hotseat brawler in 2D
 - dim floating text
 - refactor damageable
 
-# Ultimate Frogs Match!
-  - this is an alternative game mode
-  - the 2 players co-op to fight endless hordes of murderous frogs
-  
+## Ultimate Frogs Match!
+  this is an alternative game mode in which the 2 players co-op to fight endless hordes of murderous frogs!!!
+ 
 - find frogs sprites
-	- movement
-	- attack
-	- death
+  - movement
+  - attack
+  - death
 - add frogs animation
 - add frogs generation
 - add frogs AI
