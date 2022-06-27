@@ -27,9 +27,7 @@ public class MovementController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        print($"onMove{this.name}");
         lastMotionVector = context.ReadValue<Vector2>();
-        print(lastMotionVector);
         
         // Swap direction of sprite depending on walk direction
         if (lastMotionVector.x > 0)
