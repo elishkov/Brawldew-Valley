@@ -10,12 +10,14 @@ public class Character : MonoBehaviour
     [SerializeField] Text cur_health_txt;
     [SerializeField] Text max_health_txt;
     private bool is_dead = false;
-    Bandit bandit;
+    
+    private Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        bandit = GetComponent<Bandit>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,7 +33,7 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(long amount)
     {
-        bandit.TakeDamage();
+        animator.SetTrigger("Hurt");
         GameManager.instance.onScreenMessageSystem.PostMessage(transform.position, amount.ToString());
 
         cur_health = (long)Mathf.Max(0, cur_health - amount);
