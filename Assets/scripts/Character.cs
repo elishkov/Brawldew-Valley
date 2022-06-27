@@ -29,9 +29,11 @@ public class Character : MonoBehaviour
         cur_health = (long)Mathf.Min(max_health, cur_health + amount);
     }
 
-    public void Damage(long amount)
+    public void TakeDamage(long amount)
     {
         bandit.TakeDamage();
+        GameManager.instance.onScreenMessageSystem.PostMessage(transform.position, amount.ToString());
+
         cur_health = (long)Mathf.Max(0, cur_health - amount);
         
         if (cur_health == 0)

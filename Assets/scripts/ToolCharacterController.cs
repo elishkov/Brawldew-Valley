@@ -28,7 +28,6 @@ public class ToolCharacterController : MonoBehaviour
         attacking = context.action.triggered;
         if (attacking)
         {
-            print($"attacking: {attacking}");
             animator.SetTrigger("Attack");
             UseTool();
         }
@@ -56,7 +55,7 @@ public class ToolCharacterController : MonoBehaviour
             Character target = c.GetComponent<Character>();
             if (target != null && target != character)
             {
-                target.Damage(damagePerHit);
+                target.TakeDamage(damagePerHit);
                 break;
             }
         }
