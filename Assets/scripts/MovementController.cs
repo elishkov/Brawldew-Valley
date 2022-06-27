@@ -23,7 +23,6 @@ public class MovementController : MonoBehaviour
     {
         // Move
         m_body2d.velocity = new Vector2(lastMotionVector.x * m_speed, lastMotionVector.y * m_speed);
-        print($"velocity:{m_body2d.velocity}");
     }
 
     public void OnMove(InputAction.CallbackContext context)

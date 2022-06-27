@@ -10,16 +10,18 @@ public class PickupItem : MonoBehaviour
     [SerializeField] float speed = 3f;
     [SerializeField] float pickupDistance= 1.5f;
     [SerializeField] float ttl = 10f;
+    float ttl_remaining;
 
     private void Start()
     {
         players = GameManager.instance.players;
+        ttl_remaining = ttl;
     }
 
     private void Update()
     {
-        ttl -= Time.deltaTime;
-        if (ttl < 0)
+        ttl_remaining -= Time.deltaTime;
+        if (ttl!= 0 && ttl_remaining < 0)
         {
             Destroy(gameObject);
         }
