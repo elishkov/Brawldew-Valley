@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7570923124318700045}
   - component: {fileID: 7570923124318700044}
   - component: {fileID: 7570923124318700047}
+  - component: {fileID: 64160865324001715}
   m_Layer: 0
   m_Name: OnScreenMessageText
   m_TagString: Untagged
@@ -172,3 +173,16 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 7570923124318700044}
   m_maskType: 0
+--- !u!114 &64160865324001715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570923124318700046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ae78b74aa4e184d9820a951aa16bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ttl: 100

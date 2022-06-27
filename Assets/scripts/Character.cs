@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
     public void TakeDamage(long amount)
     {
         bandit.TakeDamage();
-        print($"damage taken {amount}");
+        print($"gm: {GameManager.instance.onScreenMessageSystem} transform {transform} amount{amount}");
         GameManager.instance.onScreenMessageSystem.PostMessage(transform.position, amount.ToString());
 
         cur_health = (long)Mathf.Max(0, cur_health - amount);
