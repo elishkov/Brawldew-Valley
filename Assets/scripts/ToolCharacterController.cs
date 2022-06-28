@@ -9,7 +9,8 @@ public class ToolCharacterController : MonoBehaviour
     private Animator animator;
 
 
-    [SerializeField] long damagePerHit = 15;
+    [SerializeField] long baseMinDamagePerHit = 10;
+    [SerializeField] long baseMaxDamagePerHit = 20;
     [SerializeField] float offsetDistance = 1f;
     [SerializeField] float sizeOfInteractableArea = 1.2f;
 
@@ -55,7 +56,8 @@ public class ToolCharacterController : MonoBehaviour
             Character target = c.GetComponent<Character>();
             if (target != null && target != character)
             {
-                target.TakeDamage(damagePerHit);
+                var damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
+                target.TakeDamage(damage);
                 break;
             }
         }

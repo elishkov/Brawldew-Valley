@@ -47,7 +47,6 @@ public class Character : MonoBehaviour
         // raise above character
         var text_pos_y = transform.position.y + transform.localScale.y;
 
-
         var textPosition = new Vector3(
             text_pos_x,
             text_pos_y
