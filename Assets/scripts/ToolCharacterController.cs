@@ -9,7 +9,11 @@ public class ToolCharacterController : MonoBehaviour
     private Animator animator;
 
 
-    [SerializeField] long damagePerHit = 15;
+    [SerializeField] long baseMinDamagePerHit = 10;
+    [SerializeField] long baseMaxDamagePerHit = 20;
+    [SerializeField] float critChance = 0.03f;
+    [SerializeField] float baseCritMultiplier = 2;
+
     [SerializeField] float offsetDistance = 1f;
     [SerializeField] float sizeOfInteractableArea = 1.2f;
 
@@ -25,6 +29,11 @@ public class ToolCharacterController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (character.is_dead)
+        {
+            return;
+        }
+
         attacking = context.action.triggered;
         if (attacking)
         {
@@ -53,9 +62,17 @@ public class ToolCharacterController : MonoBehaviour
                 break;
             }
             Character target = c.GetComponent<Character>();
-            if (target != null && target != character)
+            if (target != null && target != character && !target.is_dead)
             {
-                target.TakeDamage(damagePerHit);
+                float actualCritMultiplier = 1;
+                var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
+                var crit_happened = Random.Range(0f, 1f) < critChance;
+                if (crit_happened)
+                {
+                    actualCritMultiplier = baseCritMultiplier;
+                }
+                var actual_damage = (long)(actual_base_damage * actualCritMultiplier);
+                target.TakeDamage(actual_damage, crit_happened);
                 break;
             }
         }
