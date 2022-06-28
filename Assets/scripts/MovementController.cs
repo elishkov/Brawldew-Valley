@@ -6,7 +6,6 @@ public class MovementController : MonoBehaviour
 {
     [SerializeField] float m_speed = 4.0f;
     public Vector2 lastMotionVector = Vector2.zero;
-    private bool attacking = false;
 
     private Rigidbody2D m_body2d;
     private Animator animator;

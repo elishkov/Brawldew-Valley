@@ -9,6 +9,12 @@ public class OnScreenMessageSystem : MonoBehaviour
 
     public void PostMessage(Vector3 worldPosition, string message)
     {
+        PostMessage(worldPosition, message, Color.white);
+    }
+
+
+    public void PostMessage(Vector3 worldPosition, string message, Color color)
+    {
         worldPosition.z = -1f;
 
         GameObject textGO = Instantiate(textPrefab,transform);
@@ -16,6 +22,7 @@ public class OnScreenMessageSystem : MonoBehaviour
 
         TextMeshPro textMeshPro = textGO.GetComponent<TextMeshPro>();
         textMeshPro.text = message;
+        textMeshPro.color = color;
 
     }
 }

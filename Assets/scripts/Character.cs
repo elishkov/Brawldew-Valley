@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField] Text cur_health_txt;
     [SerializeField] Text max_health_txt;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
+    [SerializeField] private Color text_color;
 
     private bool is_dead = false;
     
@@ -51,7 +52,7 @@ public class Character : MonoBehaviour
             text_pos_x,
             text_pos_y
             );
-        GameManager.instance.onScreenMessageSystem.PostMessage(textPosition, amount.ToString());
+        GameManager.instance.onScreenMessageSystem.PostMessage(textPosition, amount.ToString(), text_color);
 
         cur_health = (long)Mathf.Max(0, cur_health - amount);
         
