@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7570923124318700044}
   - component: {fileID: 7570923124318700047}
   - component: {fileID: 64160865324001715}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OnScreenMessageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7570923124318700047
 MonoBehaviour:
