@@ -10,11 +10,13 @@ public class Character : MonoBehaviour
     [SerializeField] Text cur_health_txt;
     [SerializeField] Text max_health_txt;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
-    [SerializeField] private Color text_color;
-
-    private bool is_dead = false;
+    [SerializeField] Color text_color;
+    public bool is_dead = false;
     
     private Animator animator;
+    private float critFontSize = 7f;
+    private float normalFontSize = 3f;
+    private Color critColor = Color.yellow;
 
 
     // Start is called before the first frame update
@@ -34,11 +36,35 @@ public class Character : MonoBehaviour
         cur_health = (long)Mathf.Min(max_health, cur_health + amount);
     }
 
-    public void TakeDamage(long amount)
+    public void TakeDamage(long amount, bool isCrit)
     {
-        animator.SetTrigger("Hurt");
-
         
+        ShowFloatingText(amount, isCrit);
+
+        cur_health = (long)Mathf.Max(0, cur_health - amount);
+
+        var min_allowed_health = 0;
+
+        // one hit kill protection
+        if (cur_health > max_health / 10)
+        {
+            min_allowed_health = 1;
+        }
+        cur_health = (long)Mathf.Max(min_allowed_health, cur_health - amount);
+
+        if (cur_health == 0)
+        {
+            is_dead = true;
+            animator.SetTrigger("Death");
+        }
+        else
+        {
+            animator.SetTrigger("Hurt");
+        }
+    }
+
+    private void ShowFloatingText(long amount, bool isCrit)
+    {
         // scatter x axis
         var text_pos_x = Random.Range(
             transform.position.x - horizontal_floating_txt_scatter,
@@ -52,11 +78,10 @@ public class Character : MonoBehaviour
             text_pos_x,
             text_pos_y
             );
-        GameManager.instance.onScreenMessageSystem.PostMessage(textPosition, amount.ToString(), text_color);
-
-        cur_health = (long)Mathf.Max(0, cur_health - amount);
-        
-        if (cur_health == 0)
-            is_dead = true;
+        GameManager.instance.onScreenMessageSystem.PostMessage(
+            textPosition, 
+            amount.ToString(), 
+            isCrit? critColor : text_color,
+            isCrit? critFontSize : normalFontSize);
     }
 }

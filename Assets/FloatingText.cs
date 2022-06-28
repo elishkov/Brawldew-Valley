@@ -26,9 +26,11 @@ public class FloatingText : MonoBehaviour
         {
             ttl_remaining -= 1;
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.02f, -1);
+            
             TextMeshPro textMeshPro = GetComponent<TextMeshPro>();
-            var color = textMeshPro.color; // + new Color(.a += 10;
-            color.a -= 100;
+            var color = textMeshPro.color;
+            color.a -= 0.01f;
+            textMeshPro.color = color;
         }
         else
         {

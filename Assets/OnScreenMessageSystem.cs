@@ -13,7 +13,7 @@ public class OnScreenMessageSystem : MonoBehaviour
     }
 
 
-    public void PostMessage(Vector3 worldPosition, string message, Color color)
+    public void PostMessage(Vector3 worldPosition, string message, Color color, float fontSize = 3f)
     {
         worldPosition.z = -1f;
 
@@ -23,6 +23,7 @@ public class OnScreenMessageSystem : MonoBehaviour
         TextMeshPro textMeshPro = textGO.GetComponent<TextMeshPro>();
         textMeshPro.text = message;
         textMeshPro.color = color;
+        textMeshPro.fontSize = fontSize;
 
     }
 }

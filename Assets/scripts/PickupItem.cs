@@ -31,6 +31,9 @@ public class PickupItem : MonoBehaviour
         GameObject closestPlayer = null;
         foreach (var player in players)
         {
+            if (player.GetComponent<Character>().is_dead)
+                continue;
+
             distance = Vector3.Distance(transform.position, player.transform.position);
             if (distance < minDistance)
             {

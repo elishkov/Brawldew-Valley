@@ -9,12 +9,14 @@ public class MovementController : MonoBehaviour
 
     private Rigidbody2D m_body2d;
     private Animator animator;
+    private Character character;
 
     // Start is called before the first frame update
     void Start()
     {
         m_body2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        character = GetComponent<Character>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,9 @@ public class MovementController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (character.is_dead)
+            return;
+
         lastMotionVector = context.ReadValue<Vector2>();
         
         // Swap direction of sprite depending on walk direction
