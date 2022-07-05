@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    protected GameObject[] players;
     protected Character character;
 
     [SerializeField] float speed = 3f;
@@ -14,7 +13,6 @@ public class PickupItem : MonoBehaviour
 
     private void Start()
     {
-        players = GameManager.instance.players;
         ttl_remaining = ttl;
     }
 
@@ -29,7 +27,7 @@ public class PickupItem : MonoBehaviour
         float minDistance = float.MaxValue;
         float distance;
         GameObject closestPlayer = null;
-        foreach (var player in players)
+        foreach (var player in GameManager.instance.players)
         {
             if (player.GetComponent<Character>().is_dead)
                 continue;

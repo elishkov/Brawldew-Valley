@@ -1,7 +1,8 @@
+using Fusion;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ToolCharacterController : MonoBehaviour
+public class ToolCharacterController : NetworkBehaviour
 {
     private MovementController movementController;
     private Rigidbody2D rgbd2;
@@ -29,22 +30,37 @@ public class ToolCharacterController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (character.is_dead)
-        {
-            return;
-        }
+        //if (character.is_dead)
+        //{
+        //    return;
+        //}
 
-        attacking = context.action.triggered;
-        if (attacking)
-        {
-            animator.SetTrigger("Attack");
-            UseTool();
-        }
+        //attacking = context.action.triggered;
+        //if (attacking)
+        //{
+        //    animator.SetTrigger("Attack");
+        //    UseTool();
+        //}
     }
 
     private void Update()
     {
        
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (character.is_dead)
+            return;
+
+        if (GetInput(out NetworkInputData data))
+        {
+            if (data.attack)
+            {
+                animator.SetTrigger("Attack");
+                UseTool();
+            }
+        }
     }
 
     private void UseTool()

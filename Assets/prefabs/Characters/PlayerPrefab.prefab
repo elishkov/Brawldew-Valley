@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6960379499864775465}
   - component: {fileID: 6960379499864775467}
   - component: {fileID: 6960379499864775464}
+  - component: {fileID: 6554106664221683675}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -111,6 +112,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &6554106664221683675
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960379499864775470}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &6960379500289420373
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,8 +323,8 @@ MonoBehaviour:
     RotBlendStart: 0.1
     RotBlendEnd: 0.5
     RotTeleportRadians: 1.5
-  gravity: -20
-  jumpImpulse: 8
+  gravity: 0
+  jumpImpulse: 0
   acceleration: 10
   braking: 10
   maxSpeed: 2

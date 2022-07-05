@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cur_health_txt.text = $"Health: {cur_health}/{max_health}";
+        //cur_health_txt.text = $"Health: {cur_health}/{max_health}";
     }
 
     public void Heal(long amount)
