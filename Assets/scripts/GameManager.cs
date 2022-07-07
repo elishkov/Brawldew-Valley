@@ -11,6 +11,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    [SerializeField] public GameObject[] players;
+    [SerializeField] public List<GameObject> players;
     [SerializeField] public OnScreenMessageSystem onScreenMessageSystem;
 }

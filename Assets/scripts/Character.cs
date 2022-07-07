@@ -7,8 +7,8 @@ public class Character : MonoBehaviour
 {
     [SerializeField] public long cur_health = 100;
     [SerializeField] public long max_health = 100;
-    [SerializeField] Text cur_health_txt;
-    [SerializeField] Text max_health_txt;
+    [SerializeField] public Text cur_health_txt;
+    [SerializeField] public Text max_health_txt;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
     [SerializeField] Color text_color;
     public bool is_dead = false;
@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cur_health_txt.text = $"Health: {cur_health}/{max_health}";
+        //cur_health_txt.text = $"Health: {cur_health}/{max_health}";
     }
 
     public void Heal(long amount)
