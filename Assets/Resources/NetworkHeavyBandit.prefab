@@ -254,13 +254,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45d339ea659c8a4cad91b5a4a2b138f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cur_health: 200
-  max_health: 200
-  cur_health_txt: {fileID: 0}
-  max_health_txt: {fileID: 0}
+  hpBar: {fileID: 0}
+  hp:
+    maxVal: 300
+    curVal: 300
+  is_dead: 0
+  recover_period_sec: 3
+  floatingHPBar: {fileID: 0}
   horizontal_floating_txt_scatter: 0.2
   text_color: {r: 0.25943398, g: 0.33991146, b: 1, a: 1}
-  is_dead: 0
 --- !u!114 &2703121664208570422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,18 +432,12 @@ MonoBehaviour:
   - Type: 3
     SynchronizeType: 1
     Name: AnimState
-  - Type: 4
-    SynchronizeType: 1
-    Name: Grounded
   - Type: 9
     SynchronizeType: 1
     Name: Attack
   - Type: 9
     SynchronizeType: 1
     Name: Recover
-  - Type: 9
-    SynchronizeType: 1
-    Name: Jump
   - Type: 9
     SynchronizeType: 1
     Name: Hurt

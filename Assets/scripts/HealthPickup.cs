@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthPickup : PickupItem
 {
-    [SerializeField] long health_bonus = 20;
+    [SerializeField] int health_bonus = 20;
     protected override void Pickup(Character character)
     {        
         character.Heal(health_bonus);

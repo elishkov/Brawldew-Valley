@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public GameObject playerPrefab;
+    public NetworkCharacterGO playerPrefab;
 
-    public float minX;
-    public float maxX;
-    public float minY;
-    public float maxY;
+    public float minX = -1;
+    public float maxX = 1;
+    public float minY = -1;
+    public float maxY = 1;
 
     public GameManager gameManager;
     public List<Text> healthBars;
@@ -21,10 +21,16 @@ public class PlayerSpawner : MonoBehaviour
     void Start()
     {
         Vector2 position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
-        gameManager.players.Add(player);
         
-        //player.GetComponent<Character>().cur_health_txt = 
+        //var floatingHPBarGO = PhotonNetwork.Instantiate(gameManager.floatingHPBar.name, position, Quaternion.identity);
+        GameObject networkCharacter = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
+        var networkCharacterGO = networkCharacter.GetComponent<NetworkCharacterGO>();
+        
+        var character = networkCharacterGO.player.GetComponent<Character>();
+        character.hpBar = gameManager.hpBar;
+        gameManager.vcam.Follow = networkCharacterGO.player.transform;
+
+        gameManager.players.Add(networkCharacterGO.player);
     }
 
     // Update is called once per frame

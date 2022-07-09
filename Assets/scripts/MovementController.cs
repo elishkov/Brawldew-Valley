@@ -24,7 +24,7 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (view.IsMine)
+        if (view is null || view.IsMine)
         {
             // Move
             m_body2d.velocity = new Vector2(lastMotionVector.x * m_speed, lastMotionVector.y * m_speed);
@@ -33,7 +33,7 @@ public class MovementController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (view.IsMine)
+        if (view is null || view.IsMine)
         {
             if (character.is_dead)
                 return;

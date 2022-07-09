@@ -76,8 +76,8 @@ public class ToolCharacterController : MonoBehaviour
                 {
                     actualCritMultiplier = baseCritMultiplier;
                 }
-                var actual_damage = (long)(actual_base_damage * actualCritMultiplier);
-                target.TakeDamage(actual_damage, crit_happened);
+                var actual_damage = (int)( actual_base_damage * actualCritMultiplier);
+                target.ApplyDamage(actual_damage, crit_happened);
                 break;
             }
         }
