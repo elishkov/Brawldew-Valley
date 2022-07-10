@@ -1,14 +1,14 @@
-using Fusion;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ToolCharacterController : NetworkBehaviour
+public class ToolCharacterController : MonoBehaviour
 {
     private MovementController movementController;
     private Rigidbody2D rgbd2;
     private Character character;
     private Animator animator;
-
+    private PhotonView view;
 
     [SerializeField] long baseMinDamagePerHit = 10;
     [SerializeField] long baseMaxDamagePerHit = 20;
@@ -26,41 +26,30 @@ public class ToolCharacterController : NetworkBehaviour
         movementController = GetComponent<MovementController>();
         rgbd2 = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        view = GetComponent<PhotonView>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        //if (character.is_dead)
-        //{
-        //    return;
-        //}
-
-        //attacking = context.action.triggered;
-        //if (attacking)
-        //{
-        //    animator.SetTrigger("Attack");
-        //    UseTool();
-        //}
-    }
-
-    private void Update()
-    {
-       
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (character.is_dead)
-            return;
-
-        if (GetInput(out NetworkInputData data))
+        if (view.IsMine)
         {
-            if (data.attack)
+            if (character.is_dead)
+            {
+                return;
+            }
+
+            attacking = context.action.triggered;
+            if (attacking)
             {
                 animator.SetTrigger("Attack");
                 UseTool();
             }
         }
+    }
+
+    private void Update()
+    {
+       
     }
 
     private void UseTool()
@@ -87,8 +76,8 @@ public class ToolCharacterController : NetworkBehaviour
                 {
                     actualCritMultiplier = baseCritMultiplier;
                 }
-                var actual_damage = (long)(actual_base_damage * actualCritMultiplier);
-                target.TakeDamage(actual_damage, crit_happened);
+                var actual_damage = (int)( actual_base_damage * actualCritMultiplier);
+                target.ApplyDamage(actual_damage, crit_happened);
                 break;
             }
         }
