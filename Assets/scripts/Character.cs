@@ -56,8 +56,8 @@ public class Character : MonoBehaviour
     private float critFontSize = 7f;
     private float normalFontSize = 3f;
     private Color critColor = Color.yellow;
-    
-    
+    public MainHealthBar mainHealthBar;
+
     public void ApplyHeal(int amount)
     {
         //network effects
@@ -146,7 +146,8 @@ public class Character : MonoBehaviour
     {
         if (view is null || view.IsMine)
         {
-            hpBar.Set(hp.maxVal, hp.curVal);            
+            hpBar.Set(hp.maxVal, hp.curVal);
+            mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
         floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
