@@ -27,7 +27,6 @@ public class PlayerSpawner : MonoBehaviour
         var networkCharacterGO = networkCharacter.GetComponent<NetworkCharacterGO>();
         
         var character = networkCharacterGO.player.GetComponent<Character>();
-        character.hpBar = gameManager.hpBar;
         character.mainHealthBar = gameManager.mainHealthBar;
         gameManager.vcam.Follow = networkCharacterGO.player.transform;
 

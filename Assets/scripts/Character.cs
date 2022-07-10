@@ -42,7 +42,6 @@ public class Stat
 
 public class Character : MonoBehaviour
 {
-    public StatusBar hpBar;
     public Stat hp;
     public bool is_dead = false;
     public int recover_period_sec = 3;
@@ -126,9 +125,7 @@ public class Character : MonoBehaviour
 
     IEnumerator ScheduleRecover()
     {
-        print("start waiting at: " + Time.time);
         yield return new WaitForSecondsRealtime(recover_period_sec);
-        print("finished waiting at: " + Time.time);
         Recover();
         
     }
@@ -146,7 +143,6 @@ public class Character : MonoBehaviour
     {
         if (view is null || view.IsMine)
         {
-            hpBar.Set(hp.maxVal, hp.curVal);
             mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
         floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);

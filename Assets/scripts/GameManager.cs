@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public List<GameObject> players;
     [SerializeField] public OnScreenMessageSystem onScreenMessageSystem;
-    [SerializeField] public StatusBar hpBar;
     [SerializeField] public MainHealthBar mainHealthBar;
     [SerializeField] public FloatingHPBar floatingHPBar;
     [SerializeField] public Cinemachine.CinemachineVirtualCamera vcam;
