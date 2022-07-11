@@ -172,13 +172,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45d339ea659c8a4cad91b5a4a2b138f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cur_health: 200
-  max_health: 200
-  cur_health_txt: {fileID: 0}
-  max_health_txt: {fileID: 0}
+  hp:
+    maxVal: 0
+    curVal: 0
+  is_dead: 0
+  recover_period_sec: 3
+  floatingHPBar: {fileID: 0}
   horizontal_floating_txt_scatter: 0.2
   text_color: {r: 0.25943398, g: 0.33991146, b: 1, a: 1}
-  is_dead: 0
+  mainHealthBar: {fileID: 0}
 --- !u!114 &5163486302360108330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c9b80abd9bd9c4abfab2a5118e758f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
   baseMinDamagePerHit: 10
   baseMaxDamagePerHit: 20
   critChance: 0.03
@@ -210,7 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bda26369115344ba603c76b4218b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
   m_speed: 4
   lastMotionVector: {x: 0, y: 0}
 --- !u!114 &5163486302360108500
@@ -296,9 +296,7 @@ MonoBehaviour:
   NetworkGuid:
     RawGuidValue: 7f245cea6abf0f44ba30d3eb7eabf9c1
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 5163486302360108330}
-  - {fileID: 5163486302360108331}
+  NetworkedBehaviours: []
   SimulationBehaviours: []
 --- !u!1 &6333585499225607705
 GameObject:
