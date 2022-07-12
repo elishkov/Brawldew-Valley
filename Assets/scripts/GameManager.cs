@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    [SerializeField] public GameObject[] players;
+    [SerializeField] public List<GameObject> players;
     [SerializeField] public OnScreenMessageSystem onScreenMessageSystem;
+    [SerializeField] public MainHealthBar mainHealthBar;
+    [SerializeField] public FloatingHPBar floatingHPBar;
+    [SerializeField] public Cinemachine.CinemachineVirtualCamera vcam;
+    [SerializeField] public Canvas worldCanvas;
 }

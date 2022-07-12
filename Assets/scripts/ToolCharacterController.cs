@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,7 @@ public class ToolCharacterController : MonoBehaviour
     private Rigidbody2D rgbd2;
     private Character character;
     private Animator animator;
-
+    private PhotonView view;
 
     [SerializeField] long baseMinDamagePerHit = 10;
     [SerializeField] long baseMaxDamagePerHit = 20;
@@ -25,20 +26,24 @@ public class ToolCharacterController : MonoBehaviour
         movementController = GetComponent<MovementController>();
         rgbd2 = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        view = GetComponent<PhotonView>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (character.is_dead)
+        if (view.IsMine)
         {
-            return;
-        }
+            if (character.is_dead)
+            {
+                return;
+            }
 
-        attacking = context.action.triggered;
-        if (attacking)
-        {
-            animator.SetTrigger("Attack");
-            UseTool();
+            attacking = context.action.triggered;
+            if (attacking)
+            {
+                animator.SetTrigger("Attack");
+                UseTool();
+            }
         }
     }
 
@@ -71,8 +76,8 @@ public class ToolCharacterController : MonoBehaviour
                 {
                     actualCritMultiplier = baseCritMultiplier;
                 }
-                var actual_damage = (long)(actual_base_damage * actualCritMultiplier);
-                target.TakeDamage(actual_damage, crit_happened);
+                var actual_damage = (int)( actual_base_damage * actualCritMultiplier);
+                target.ApplyDamage(actual_damage, crit_happened);
                 break;
             }
         }

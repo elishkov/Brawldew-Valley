@@ -1,60 +1,120 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
+public class Stat
+{
+    public int maxVal;
+    public int curVal;
+
+    public Stat(int max, int cur)
+    {
+        maxVal = max;
+        curVal = cur;
+    }
+
+    internal void Subtract(int amount)
+    {
+        curVal -= amount;
+        if (curVal < 0) curVal = 0;
+    }
+
+    internal void Add(int amount)
+    {
+        curVal += amount;
+        if (curVal > maxVal) curVal = maxVal;
+    }
+
+    internal void SetToMax()
+    {
+        curVal = maxVal;
+    }
+
+    public override string ToString()
+    {
+        return $"current: {curVal}; max: {maxVal}";
+    }
+}
+
 public class Character : MonoBehaviour
 {
-    [SerializeField] public long cur_health = 100;
-    [SerializeField] public long max_health = 100;
-    [SerializeField] Text cur_health_txt;
-    [SerializeField] Text max_health_txt;
+    public Stat hp;
+    public bool is_dead = false;
+    public int recover_period_sec = 3;
+
+    private Animator animator;
+    private PhotonView view;
+
+    public GameObject floatingHPBar;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
     [SerializeField] Color text_color;
-    public bool is_dead = false;
-    
-    private Animator animator;
     private float critFontSize = 7f;
     private float normalFontSize = 3f;
     private Color critColor = Color.yellow;
+    public MainHealthBar mainHealthBar;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void ApplyHeal(int amount)
     {
-        animator = GetComponent<Animator>();
+        //network effects
+        view.RPC("Heal", RpcTarget.AllBuffered, amount);
+
+        //local effects
+        UpdateHpBar();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    [PunRPC]
+    public void Heal(int amount)
     {
-        cur_health_txt.text = $"Health: {cur_health}/{max_health}";
+        hp.Add(amount);
     }
 
-    public void Heal(long amount)
+    public void FullHeal()
     {
-        cur_health = (long)Mathf.Min(max_health, cur_health + amount);
+        hp.SetToMax();
     }
 
-    public void TakeDamage(long amount, bool isCrit)
+    public void ApplyDamage(int amount, bool isCrit)
     {
-        
+        amount = OneHitKillProtectionAdjustment(amount);
+
+        // network effect
+        view.RPC("TakeDamage", RpcTarget.AllBuffered, amount, isCrit);
+
+        // local effect
         ShowFloatingText(amount, isCrit);
+    }
 
-        cur_health = (long)Mathf.Max(0, cur_health - amount);
-
-        var min_allowed_health = 0;
-
-        // one hit kill protection
-        if (cur_health > max_health / 10)
+    private int OneHitKillProtectionAdjustment(int amount)
+    {
+        int max_allowed_dmg = hp.curVal;
+        if ((float)hp.curVal / hp.maxVal > 0.1)
         {
-            min_allowed_health = 1;
+            max_allowed_dmg = hp.curVal - 1;
         }
-        cur_health = (long)Mathf.Max(min_allowed_health, cur_health - amount);
+        amount = Mathf.Min(max_allowed_dmg, amount);
+        return amount;
+    }
 
-        if (cur_health == 0)
+    [PunRPC]
+    public void TakeDamage(int amount, bool isCrit)
+    {
+        hp.Subtract(amount);
+
+        UpdateHpBar();
+
+        if (hp.curVal <= 0)
         {
-            is_dead = true;
+            is_dead = true;            
+            StartCoroutine(ScheduleRecover());            
+        }
+
+        if (is_dead == true)
+        {
             animator.SetTrigger("Death");
         }
         else
@@ -63,10 +123,35 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void ShowFloatingText(long amount, bool isCrit)
+    IEnumerator ScheduleRecover()
+    {
+        yield return new WaitForSecondsRealtime(recover_period_sec);
+        Recover();
+        
+    }
+
+    [PunRPC]
+    public void Recover()
+    {
+        is_dead = false;
+        hp.SetToMax();
+        UpdateHpBar();
+        animator.SetTrigger("Recover");
+    }
+
+    private void UpdateHpBar()
+    {
+        if (view is null || view.IsMine)
+        {
+            mainHealthBar.Set(hp.maxVal, hp.curVal);
+        }
+        floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
+    }
+
+    public void ShowFloatingText(long amount, bool isCrit)
     {
         // scatter x axis
-        var text_pos_x = Random.Range(
+        var text_pos_x = UnityEngine.Random.Range(
             transform.position.x - horizontal_floating_txt_scatter,
             transform.position.x + horizontal_floating_txt_scatter
             );
@@ -79,9 +164,21 @@ public class Character : MonoBehaviour
             text_pos_y
             );
         GameManager.instance.onScreenMessageSystem.PostMessage(
-            textPosition, 
-            amount.ToString(), 
-            isCrit? critColor : text_color,
-            isCrit? critFontSize : normalFontSize);
+            textPosition,
+            amount.ToString(),
+            isCrit ? critColor : text_color,
+            isCrit ? critFontSize : normalFontSize);
+    }
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        view = GetComponent<PhotonView>();
+        UpdateHpBar();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
     }
 }
