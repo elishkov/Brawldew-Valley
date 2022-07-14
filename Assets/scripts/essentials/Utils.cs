@@ -8,8 +8,5 @@ namespace Assets.scripts
         {
             MonoBehaviour.print($"{title}: {obj}");
         }
-    }
-    
-    
-    
+    }   
 }

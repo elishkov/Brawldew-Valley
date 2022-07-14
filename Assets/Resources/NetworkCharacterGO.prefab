@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2464998382510931610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 2124964012493851804, guid: 5369b588db400624a85c9b96dbe64742, type: 3}
+  m_PrefabInstance: {fileID: 4559909443643814406}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129578606717367429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d87e24270f7e0a48a2a8c14593ecbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dash_speed: 150
 --- !u!1 &4559909444434182497
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +368,18 @@ PrefabInstance:
     - target: {fileID: 7602233846451085637, guid: 5369b588db400624a85c9b96dbe64742, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929278379858697491, guid: 5369b588db400624a85c9b96dbe64742, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929278379858697491, guid: 5369b588db400624a85c9b96dbe64742, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+      value: 1282e2b2-2e7f-493e-bc7f-46412ff0603d
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929278379858697491, guid: 5369b588db400624a85c9b96dbe64742, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+      value: player/Dash[/Keyboard/shift]
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5369b588db400624a85c9b96dbe64742, type: 3}

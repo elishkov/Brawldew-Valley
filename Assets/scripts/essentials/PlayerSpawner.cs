@@ -22,7 +22,6 @@ public class PlayerSpawner : MonoBehaviour
     {
         Vector2 position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
         
-        //var floatingHPBarGO = PhotonNetwork.Instantiate(gameManager.floatingHPBar.name, position, Quaternion.identity);
         GameObject networkCharacter = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
         var networkCharacterGO = networkCharacter.GetComponent<NetworkCharacterGO>();
         
