@@ -32,10 +32,4 @@ public class PlayerSpawner : MonoBehaviour
 
         gameManager.players.Add(networkCharacterGO.player);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

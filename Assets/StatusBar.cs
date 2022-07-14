@@ -13,6 +13,9 @@ public class StatusBar : MonoBehaviour
     public void Set(int maxVal, int curVal)
     {
         bar.fillAmount = (float)curVal / maxVal;
-        text.text = $"{curVal}/{maxVal}";
+        if (text is not null)
+        {
+            text.text = $"{curVal}/{maxVal}";
+        }
     }
 }

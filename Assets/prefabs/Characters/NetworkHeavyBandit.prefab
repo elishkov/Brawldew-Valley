@@ -195,8 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMinDamagePerHit: 10
   baseMaxDamagePerHit: 20
-  critChance: 0.03
-  baseCritMultiplier: 2
+  critChance: 0.05
+  baseCritMultiplier: 2.5
   offsetDistance: 0.5
   sizeOfInteractableArea: 1.2
 --- !u!114 &5163486302360108331
