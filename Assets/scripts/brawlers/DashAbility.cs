@@ -14,6 +14,7 @@ public class DashAbility : MonoBehaviour
     private bool is_mid_dash = false;
 
     public float dash_speed = 150.0f;
+    private bool dashing;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +38,12 @@ public class DashAbility : MonoBehaviour
             {
                 return;
             }
-            //animator.SetTrigger("Dash");
-            Dash(movementController.lastMotionVector);
+            dashing = context.action.triggered;
+            if (dashing)
+            {
+                //animator.SetTrigger("Dash");
+                Dash(movementController.lastMotionVector);
+            }
         }
     }
 
