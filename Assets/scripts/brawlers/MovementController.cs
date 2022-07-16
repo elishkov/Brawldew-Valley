@@ -78,8 +78,7 @@ public class MovementController : MonoBehaviour
             m_speed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
         if (count == 0)
-        {
-            print("moving");
+        {            
             Vector2 moveVector = direction * m_speed * Time.fixedDeltaTime;
 
             // No collisions

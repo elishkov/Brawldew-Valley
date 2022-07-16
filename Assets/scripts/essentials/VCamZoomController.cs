@@ -25,7 +25,6 @@ public class VCamZoomController : MonoBehaviour
         if (newOrthographicSize > minOrthographicSize && newOrthographicSize < maxOrthographicSize)
         {
             var vc = vCam.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-            print($"OrthographicSize changed to {newOrthographicSize}");
             vc.m_Lens.OrthographicSize = newOrthographicSize;
         }
     }

@@ -37,9 +37,8 @@ public class DashAbility : MonoBehaviour
         if (dash_stage > 0)
         {
             dash_stage -= 1;
-            var jump = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * staged_dash_speed * Time.deltaTime;
-            print(jump);
-            transform.position += jump;
+            var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * staged_dash_speed * Time.deltaTime;
+            transform.position += dashVector;
         }
     }
     public void OnDash(InputAction.CallbackContext context)
