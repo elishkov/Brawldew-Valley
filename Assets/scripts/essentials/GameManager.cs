@@ -17,4 +17,5 @@ public class GameManager : MonoBehaviour
     [SerializeField] public FloatingHPBar floatingHPBar;
     [SerializeField] public Cinemachine.CinemachineVirtualCamera vcam;
     [SerializeField] public Canvas worldCanvas;
+    [SerializeField] public CooldownIcon dashCooldownIcon;
 }

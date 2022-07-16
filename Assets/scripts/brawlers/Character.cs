@@ -56,6 +56,8 @@ public class Character : MonoBehaviour
     private float normalFontSize = 3f;
     private Color critColor = Color.yellow;
     public MainHealthBar mainHealthBar;
+    internal GameObject fountain;
+    private int i;
 
     public void ApplyHeal(int amount)
     {
@@ -143,9 +145,10 @@ public class Character : MonoBehaviour
     {
         if (view is null || view.IsMine)
         {
-            mainHealthBar.Set(hp.maxVal, hp.curVal);
+            if (mainHealthBar is not null) mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
-        floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
+
+        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 
     public void ShowFloatingText(long amount, bool isCrit)

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6711855806042034365}
   - component: {fileID: 5142910385112919410}
   - component: {fileID: 513313636848325608}
+  - component: {fileID: 3381719777140946181}
   m_Layer: 9
   m_Name: CharacterCollisionBlocker
   m_TagString: Untagged
@@ -53,7 +54,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &513313636848325608
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -67,7 +68,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: 0.54}
+  m_Offset: {x: -0.029999971, y: -0.5175158}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -78,8 +79,22 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.91, y: 4.27}
+  m_Size: {x: 1.91, y: 2.154968}
   m_EdgeRadius: 0
+--- !u!114 &3381719777140946181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54647069904068607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e7bc5420753f94683ff1a53f4bcc89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterCollider: {fileID: 1573756686166715185}
+  characterBlockerCollider: {fileID: 513313636848325608}
 --- !u!1 &2505625437845997187
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +221,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505625437845997187}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -229,10 +244,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02, y: 0.52}
+  m_Offset: {x: -0.019999996, y: 0.40451932}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -243,7 +258,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.47, y: 0.85}
+  m_Size: {x: 0.47, y: 0.61903846}
   m_EdgeRadius: 0
 --- !u!114 &4013467692091805045
 MonoBehaviour:
@@ -298,6 +313,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 4
   lastMotionVector: {x: 0, y: 0}
+  movementFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  collisionOffset: 0.02
 --- !u!114 &5197608776536831943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d87e24270f7e0a48a2a8c14593ecbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dash_speed: 750
+  dash_speed: 1250
+  staged_dash_speed: 40
+  dash_frame_count: 30
+  cooldownIcon: {fileID: 0}
 --- !u!114 &8929278379858697491
 MonoBehaviour:
   m_ObjectHideFlags: 0
