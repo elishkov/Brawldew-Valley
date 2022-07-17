@@ -67,13 +67,13 @@ public class DashAbility : MonoBehaviour
                     // show dash animation
                     var beforeDashPosition = transform.position + ((Vector3)lastMotionVector * (dashEffectWidth/2));
                     var x_scale = dashDistance / dashEffectWidth;
-
-                    var dash_transform = Instantiate(dashEffect, beforeDashPosition, Quaternion.identity);
+                    
+                    var dash_object = PhotonNetwork.Instantiate(dashEffect.name, beforeDashPosition, Quaternion.identity);
+                    var dash_transform = dash_object.GetComponent<Transform>();
                     dash_transform.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(lastMotionVector));
                     dash_transform.localScale = new Vector3(x_scale, 1.5f, 1f);
 
                     print(transform.position);                    
-
 
                     //perform dash
                     // alternative 1: gradual multi frame dash action
@@ -81,10 +81,6 @@ public class DashAbility : MonoBehaviour
                     
                     // alternative 2: single dash action
                     Dash(movementController.facing);
-                    
-
-                    
-
                 }
             }
         }

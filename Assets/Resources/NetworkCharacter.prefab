@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d87e24270f7e0a48a2a8c14593ecbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashEffect: {fileID: 4749125973432492, guid: e4d83b16118644142b2b3274d0fbb6c0, type: 3}
+  dashEffect: {fileID: 308456331112032108, guid: 32197ed7558a269419fe23fb8ef61bbc, type: 3}
   cooldownIcon: {fileID: 0}
   dashCooldownDuration: 1
   dashEffectWidth: 4
