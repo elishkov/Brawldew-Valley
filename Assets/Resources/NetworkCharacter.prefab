@@ -313,6 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 4
   lastMotionVector: {x: 0, y: 0}
+  facing: {x: 0, y: 0}
   movementFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -340,10 +341,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d87e24270f7e0a48a2a8c14593ecbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dash_speed: 1250
-  staged_dash_speed: 40
-  dash_frame_count: 30
+  dashEffect: {fileID: 4749125973432492, guid: e4d83b16118644142b2b3274d0fbb6c0, type: 3}
   cooldownIcon: {fileID: 0}
+  dashCooldownDuration: 1
+  dashEffectWidth: 4
+  dashSpeed: 5
+  dashDistance: 5
+  dashDuration: 0.1
 --- !u!114 &8929278379858697491
 MonoBehaviour:
   m_ObjectHideFlags: 0

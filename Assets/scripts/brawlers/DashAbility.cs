@@ -12,16 +12,21 @@ public class DashAbility : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private MovementController movementController;
     private float lastDashTime = 0;
+    private float dashStartTime = 0;
     private bool dashing;
-    private float dashCooldown = 2f;
+    
     private Vector2 lastMotionVector;
-    private int dash_stage;
+    private float dashDistanceRemaining;
+    
+    [SerializeField] private Transform dashEffect;
+    [SerializeField] public CooldownIcon cooldownIcon;
 
-    public float dash_speed;
-    public float staged_dash_speed;
-    public int dash_frame_count;
-    public CooldownIcon cooldownIcon;
-
+    [SerializeField] private float dashCooldownDuration;
+    [SerializeField] private float dashEffectWidth;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashDistance;
+    [SerializeField] private float dashDuration;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,13 +37,14 @@ public class DashAbility : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (dash_stage > 0)
+        if (dashDistanceRemaining > 0)
         {
-            dash_stage -= 1;
-            var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * staged_dash_speed * Time.deltaTime;
-            transform.position += dashVector;
+            var dashPerFrame = Time.fixedDeltaTime * dashDistance / dashDuration ;
+            dashDistanceRemaining -= dashPerFrame;
+            var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * dashPerFrame;
+            transform.position += dashVector;            
         }
     }
     public void OnDash(InputAction.CallbackContext context)
@@ -52,22 +58,51 @@ public class DashAbility : MonoBehaviour
             dashing = context.action.triggered;
             if (dashing)
             {                
-                if (Time.time - lastDashTime > dashCooldown)
+                if (Time.time - lastDashTime > dashCooldownDuration)
                 {
-                    cooldownIcon.StartCooldown(dashCooldown);
                     lastDashTime = Time.time;
                     lastMotionVector = movementController.facing;
-                    //animator.SetTrigger("Dash");
-                    //Dash(movementController.lastMotionVector);
-                    dash_stage = dash_frame_count;
+                    cooldownIcon.StartCooldown(dashCooldownDuration);
+
+                    // show dash animation
+                    var beforeDashPosition = transform.position + ((Vector3)lastMotionVector * (dashEffectWidth/2));
+                    var x_scale = dashDistance / dashEffectWidth;
+
+                    var dash_transform = Instantiate(dashEffect, beforeDashPosition, Quaternion.identity);
+                    dash_transform.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(lastMotionVector));
+                    dash_transform.localScale = new Vector3(x_scale, 1.5f, 1f);
+
+                    print(transform.position);                    
+
+
+                    //perform dash
+                    // alternative 1: gradual multi frame dash action
+                    //dashDistanceRemaining= dashDistance;
+                    
+                    // alternative 2: single dash action
+                    Dash(movementController.facing);
+                    
+
+                    
+
                 }
             }
         }
     }
 
+    public static float GetAngleFromVectorFloat(Vector3 dir)
+    {
+        dir = dir.normalized;
+        float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (n < 0) n += 360;
+
+        return n;
+    }
+
     private void Dash(Vector2 lastMotionVector)
     {
-        var jump = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * dash_speed * Time.deltaTime;
-        transform.position += jump;
+        var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * dashSpeed;
+        print("dash vector" + dashVector);
+        transform.position += dashVector;
     }
 }
