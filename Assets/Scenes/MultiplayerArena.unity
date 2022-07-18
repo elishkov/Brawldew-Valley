@@ -957,7 +957,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4166666, y: 1}
+    m_SensorSize: {x: 1.859375, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1053,6 +1053,10 @@ PrefabInstance:
       propertyPath: onScreenMessageSystem
       value: 
       objectReference: {fileID: 1734895756}
+    - target: {fileID: 8649934388381261081, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
+      propertyPath: singleDigitScorePanel
+      value: 
+      objectReference: {fileID: 612357006757168739}
     - target: {fileID: 8649934388381261086, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1173,24 +1177,19 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8614127942316244994, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1a1da36a104725048b8d2388fb8d321d, type: 3}
-    - target: {fileID: 8614127942316244994, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8614127942316244994, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
-      propertyPath: m_Color.g
-      value: 0.3207547
-      objectReference: {fileID: 0}
-    - target: {fileID: 8614127942316244994, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
-      propertyPath: m_Color.r
-      value: 0.30239177
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
+--- !u!114 &612357006757168739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 254265567, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
+  m_PrefabInstance: {fileID: 612357006757168738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733b1c81ec6e34f46a8003852f79b947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2092467325473110394 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1546538447615049496, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}

@@ -281,6 +281,7 @@ MonoBehaviour:
   horizontal_floating_txt_scatter: 0.2
   text_color: {r: 0.25943398, g: 0.33991146, b: 1, a: 1}
   mainHealthBar: {fileID: 0}
+  singleDigitScorePanel: {fileID: 0}
 --- !u!114 &2703121664208570422
 MonoBehaviour:
   m_ObjectHideFlags: 0

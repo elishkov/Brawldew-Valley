@@ -5,22 +5,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DashAbility : MonoBehaviour
+public class DashController : MonoBehaviour
 {
     private PhotonView view;
     private Character character;
-    private Rigidbody2D rigidbody2d;
     private MovementController movementController;
     private float lastDashTime = 0;
-    private float dashStartTime = 0;
     private bool dashing;
     
     private Vector2 lastMotionVector;
     private float dashDistanceRemaining;
     
     [SerializeField] private Transform dashEffect;
-    [SerializeField] public CooldownIcon cooldownIcon;
-
+    
     [SerializeField] private float dashCooldownDuration;
     [SerializeField] private float dashEffectWidth;
     [SerializeField] private float dashSpeed;
@@ -32,7 +29,6 @@ public class DashAbility : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         character = GetComponent<Character>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
         movementController = GetComponent<MovementController>();
     }
 
@@ -62,7 +58,7 @@ public class DashAbility : MonoBehaviour
                 {
                     lastDashTime = Time.time;
                     lastMotionVector = movementController.facing;
-                    cooldownIcon.StartCooldown(dashCooldownDuration);
+                    GameManager.instance.dashCooldownIcon.StartCooldown(dashCooldownDuration);
 
                     // show dash animation
                     var beforeDashPosition = transform.position + ((Vector3)lastMotionVector * (dashEffectWidth/2));

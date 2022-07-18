@@ -55,9 +55,7 @@ public class Character : MonoBehaviour
     private float critFontSize = 7f;
     private float normalFontSize = 3f;
     private Color critColor = Color.yellow;
-    public MainHealthBar mainHealthBar;
-    internal GameObject fountain;
-    private int i;
+    
 
     public void ApplyHeal(int amount)
     {
@@ -102,6 +100,14 @@ public class Character : MonoBehaviour
         return amount;
     }
 
+    public void ReportKill()
+    {
+        if (!view.IsMine)
+        {
+            GameManager.instance.singleDigitScorePanel.IncreaseScore();
+        }
+    }
+
     [PunRPC]
     public void TakeDamage(int amount, bool isCrit)
     {
@@ -117,7 +123,8 @@ public class Character : MonoBehaviour
 
         if (is_dead == true)
         {
-            animator.SetTrigger("Death");
+            animator.SetTrigger("Death");            
+            ReportKill();
         }
         else
         {
@@ -145,7 +152,7 @@ public class Character : MonoBehaviour
     {
         if (view is null || view.IsMine)
         {
-            if (mainHealthBar is not null) mainHealthBar.Set(hp.maxVal, hp.curVal);
+            GameManager.instance.mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
 
         if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
