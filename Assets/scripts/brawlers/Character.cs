@@ -49,7 +49,7 @@ public class Character : MonoBehaviour
     private Animator animator;
     private PhotonView view;
 
-    public GameObject floatingHPBar;
+    [SerializeField] private GameObject floatingHPBar;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
     [SerializeField] Color text_color;
     private float critFontSize = 7f;
