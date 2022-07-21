@@ -1,7 +1,10 @@
 # Brawldew-Valley
 
 This is a fun project to learn unity and experience with building a game.
-The idea is to create a 2 players hotseat brawler in 2D
+The idea is to create a 2 players brawler in 2D. 
+Players will compete in a fast paced combat as they are thrown into an arena filled with pickups, buffs and traps!
+They will attempt to gain power ups and abilities to reach godlike power and defeat their opponent.
+First one to reach 10 kill points wins!
 
 ## TODO
 
@@ -15,7 +18,8 @@ The idea is to create a 2 players hotseat brawler in 2D
 - dim floating text - DONE
 - add breakable walls
 - add lightning pickup
-- add recooperate animation
+- add recooperate animation - DONE
+- dash ability - DONE
 - add buff/debuff dashboard for each player
 - add buffs
   - crit buff
@@ -28,12 +32,12 @@ The idea is to create a 2 players hotseat brawler in 2D
   - frogs deathmatch
 
 ### Code Structure
-- refactor damageable out
-- organize p1 vs p2
+- refactor damageable out 
+- organize p1 vs p2 - DONE
 
 ### Multiplayer
-- allow players to host/join games
-- add multiplayer support to gameplay
+- allow players to host/join games - DONE
+- add multiplayer support to gameplay - DONE
 
 ### Ultimate Frogs Match!
   this is an alternative game mode in which the 2 players co-op to fight endless hordes of murderous frogs!!!
