@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4013467692091805045}
   - component: {fileID: 2703121664208570422}
   - component: {fileID: 5898831185689193694}
+  - component: {fileID: 5197608776536831943}
   - component: {fileID: 8929278379858697491}
   - component: {fileID: 554932149194550203}
   - component: {fileID: -3965726476071802635}
@@ -223,7 +224,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505625437845997187}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -249,12 +250,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505625437845997187}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b45d339ea659c8a4cad91b5a4a2b138f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 0}
   hp:
     maxVal: 300
     curVal: 300
@@ -263,6 +263,7 @@ MonoBehaviour:
   floatingHPBar: {fileID: 0}
   horizontal_floating_txt_scatter: 0.2
   text_color: {r: 0.25943398, g: 0.33991146, b: 1, a: 1}
+  mainHealthBar: {fileID: 0}
 --- !u!114 &2703121664208570422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505625437845997187}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7c9b80abd9bd9c4abfab2a5118e758f, type: 3}
   m_Name: 
@@ -288,13 +289,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505625437845997187}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8bda26369115344ba603c76b4218b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 4
   lastMotionVector: {x: 0, y: 0}
+--- !u!114 &5197608776536831943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505625437845997187}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d87e24270f7e0a48a2a8c14593ecbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dash_speed: 750
 --- !u!114 &8929278379858697491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505625437845997187}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -352,6 +366,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a497e0c5-9e3f-4c05-aa3a-d004364257ed
     m_ActionName: player2/Attack[/Keyboard/numpad0]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5197608776536831943}
+        m_TargetAssemblyTypeName: DashAbility, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ab6bd87b-65e3-467e-bc43-f2c37d956730
+    m_ActionName: player/Dash[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
