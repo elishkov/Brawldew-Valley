@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +19,35 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject fountain;
 
 
-    // Start is called before the first frame update
     void Start()
+    {
+        // do this only once
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SetupArena();
+        }
+
+        // do this for each player joining
+        CreateAndSetupPlayer();
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            print(player.NickName);
+        }
+    }
+
+    private void SetupArena()
+    {
+        PhotonNetwork.Instantiate(gameManager.pickups.name, Vector3.zero, Quaternion.identity);
+    }
+
+    private void CreateAndSetupPlayer()
     {
         Vector3 position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
         GameObject networkCharacterGO = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
         var networkCharacter = networkCharacterGO.GetComponent<NetworkCharacter>();
         gameManager.vcam.Follow = networkCharacter.transform;
         gameManager.players.Add(networkCharacterGO);
+        print($"gameManager.players: {gameManager.players.Capacity}");
     }
 }

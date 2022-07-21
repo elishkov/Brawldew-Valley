@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    [SerializeField] public GameObject pickups;
     [SerializeField] public List<GameObject> players;
     [SerializeField] public OnScreenMessageSystem onScreenMessageSystem;
     [SerializeField] public MainHealthBar mainHealthBar;

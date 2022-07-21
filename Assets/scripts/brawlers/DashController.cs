@@ -68,9 +68,7 @@ public class DashController : MonoBehaviour
                     var dash_transform = dash_object.GetComponent<Transform>();
                     dash_transform.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(lastMotionVector));
                     dash_transform.localScale = new Vector3(x_scale, 1.5f, 1f);
-
-                    print(transform.position);                    
-
+                                        
                     //perform dash
                     // alternative 1: gradual multi frame dash action
                     //dashDistanceRemaining= dashDistance;
@@ -94,7 +92,6 @@ public class DashController : MonoBehaviour
     private void Dash(Vector2 lastMotionVector)
     {
         var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * dashSpeed;
-        print("dash vector" + dashVector);
         transform.position += dashVector;
     }
 }

@@ -1,19 +1,21 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupItem : MonoBehaviour
-{
-    protected Character character;
-
+{    
     [SerializeField] float speed = 3f;
     [SerializeField] float pickupDistance= 1.5f;
     [SerializeField] float ttl = 10f;
     float ttl_remaining;
 
+    protected PhotonView view;
+
     private void Start()
     {
         ttl_remaining = ttl;
+        view = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -55,6 +57,7 @@ public class PickupItem : MonoBehaviour
         }
     }
 
+    [PunRPC]
     protected virtual void Pickup(Character character)
     {
         Destroy(gameObject);
