@@ -9,7 +9,9 @@ public class HealthPickup : PickupItem
     
     protected override void Pickup(Character character)
     {
+        // state change
         character.ApplyHeal(health_bonus);
+        // network effect
         view.RPC("DeletePickup", RpcTarget.AllBuffered);
     }
 

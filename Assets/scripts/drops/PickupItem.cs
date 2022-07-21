@@ -57,7 +57,6 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    [PunRPC]
     protected virtual void Pickup(Character character)
     {
         Destroy(gameObject);
