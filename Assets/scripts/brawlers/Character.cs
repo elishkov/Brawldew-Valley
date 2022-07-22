@@ -54,8 +54,8 @@ public class Character : MonoBehaviour
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
     [SerializeField] Color text_color;
 
-    private float critFontSize = 7f;
-    private float normalFontSize = 3f;
+    private readonly float critFontSize = 7f;
+    private readonly float normalFontSize = 3f;
     private Color critColor = Color.yellow;
     
 
@@ -73,8 +73,7 @@ public class Character : MonoBehaviour
     public void Heal(int amount)
     {
         hp.Add(amount);
-
-        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
+        if (floatingHPBar != null) floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 
     public void FullHeal()
@@ -187,10 +186,5 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
         UpdateHpBar();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
