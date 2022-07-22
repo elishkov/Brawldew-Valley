@@ -142,7 +142,6 @@ public class Character : MonoBehaviour
         
     }
 
-    [PunRPC]
     public void Recover()
     {
         is_dead = false;
@@ -153,11 +152,10 @@ public class Character : MonoBehaviour
 
     private void UpdateHpBar()
     {
-        if (view is null || view.IsMine)
+        if (GameManager.instance.mainHealthBar != null)
         {
             GameManager.instance.mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
-
     }
 
     public void ShowFloatingText(long amount, bool isCrit)
