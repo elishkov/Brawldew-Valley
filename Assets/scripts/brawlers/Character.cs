@@ -50,8 +50,10 @@ public class Character : MonoBehaviour
     private PhotonView view;
 
     [SerializeField] private GameObject floatingHPBar;
+    [SerializeField] public MainHealthBar mainHealthBar;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
     [SerializeField] Color text_color;
+
     private float critFontSize = 7f;
     private float normalFontSize = 3f;
     private Color critColor = Color.yellow;
@@ -88,7 +90,6 @@ public class Character : MonoBehaviour
         view.RPC("TakeDamage", RpcTarget.AllBuffered, amount, isCrit);
 
         // local effects
-        UpdateHpBar();
         ShowFloatingText(amount, isCrit);
     }
 
@@ -103,7 +104,7 @@ public class Character : MonoBehaviour
         return amount;
     }
 
-    public void ReportKill()
+    public void ReportKilled()
     {
         if (!view.IsMine)
         {
@@ -115,6 +116,7 @@ public class Character : MonoBehaviour
     public void TakeDamage(int amount, bool isCrit)
     {
         hp.Subtract(amount);
+        UpdateHpBar();
 
         if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
 
@@ -127,7 +129,7 @@ public class Character : MonoBehaviour
         if (is_dead == true)
         {
             animator.SetTrigger("Death");            
-            ReportKill();
+            ReportKilled();
         }
         else
         {
@@ -152,9 +154,9 @@ public class Character : MonoBehaviour
 
     private void UpdateHpBar()
     {
-        if (GameManager.instance.mainHealthBar != null)
+        if (mainHealthBar != null)
         {
-            GameManager.instance.mainHealthBar.Set(hp.maxVal, hp.curVal);
+            mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
     }
 
