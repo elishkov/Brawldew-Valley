@@ -71,6 +71,8 @@ public class Character : MonoBehaviour
     public void Heal(int amount)
     {
         hp.Add(amount);
+
+        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 
     public void FullHeal()
@@ -85,7 +87,8 @@ public class Character : MonoBehaviour
         // network effect
         view.RPC("TakeDamage", RpcTarget.AllBuffered, amount, isCrit);
 
-        // local effect
+        // local effects
+        UpdateHpBar();
         ShowFloatingText(amount, isCrit);
     }
 
@@ -113,7 +116,7 @@ public class Character : MonoBehaviour
     {
         hp.Subtract(amount);
 
-        UpdateHpBar();
+        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
 
         if (hp.curVal <= 0)
         {
@@ -155,7 +158,6 @@ public class Character : MonoBehaviour
             GameManager.instance.mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
 
-        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 
     public void ShowFloatingText(long amount, bool isCrit)
