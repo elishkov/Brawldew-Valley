@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using TMPro;
+using Photon.Realtime;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
@@ -15,6 +16,8 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        RoomOptions roomOptions = new();
+        roomOptions.MaxPlayers = 2;
         PhotonNetwork.CreateRoom(roomNameInput.text);
     }
 
@@ -26,10 +29,8 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // check player name uniqueness
-        print($"OnJoinedRoom: number of players {PhotonNetwork.PlayerList.Length}");
         foreach (var player in PhotonNetwork.PlayerList)
         {
-            print($"player nick name: {player.NickName}");
             if (player.NickName == playerNameInput.text)
             {
                 messageTextField.text = "player name isn't available, please choose a different name";
