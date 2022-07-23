@@ -49,6 +49,5 @@ public class PlayerSpawner : MonoBehaviour
         networkCharacter.GetComponent<Character>().mainHealthBar = gameManager.mainHealthBar;
         gameManager.vcam.Follow = networkCharacter.transform;
         gameManager.players.Add(networkCharacterGO);
-        print($"gameManager.players: {gameManager.players.Count}");
     }
 }
