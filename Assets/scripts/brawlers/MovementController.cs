@@ -15,9 +15,14 @@ public class MovementController : MonoBehaviour
     private Animator animator;
     private Character character;
     private PhotonView view;
+    private SpriteRenderer spriteRenderer;
+
+    // collisions
     public ContactFilter2D movementFilter;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     public float collisionOffset = 0.02f;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +31,17 @@ public class MovementController : MonoBehaviour
         animator = GetComponent<Animator>();
         character = GetComponent<Character>();
         view = GetComponent<PhotonView>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        // Swap direction of sprite depending on walk direction
+        if (lastMotionVector.x != 0)
+        {
+            spriteRenderer.flipX = lastMotionVector.x > 0;
+        }
+
     }
 
     void FixedUpdate()
@@ -85,13 +101,8 @@ public class MovementController : MonoBehaviour
             if (character.is_dead)
                 return;
 
-            lastMotionVector = context.ReadValue<Vector2>();
-
-            // Swap direction of sprite depending on walk direction
-            if (lastMotionVector.x > 0)
-                transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            else if (lastMotionVector.x < 0)
-                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            // last motion vector should be updated on all clients
+            view.RPC("UpdateLastMotionVector", RpcTarget.All, context.ReadValue<Vector2>());
 
             // set animations
             if (lastMotionVector.x != 0 || lastMotionVector.y != 0) {
@@ -103,5 +114,11 @@ public class MovementController : MonoBehaviour
                 animator.SetInteger("AnimState", 0);
             }
         }       
+    }
+
+    [PunRPC]
+    private void UpdateLastMotionVector(Vector2 vector)
+    {
+        lastMotionVector = vector;
     }
 }

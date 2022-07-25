@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
     private readonly float critFontSize = 7f;
     private readonly float normalFontSize = 3f;
     private Color critColor = Color.yellow;
-    
+    internal string charName;
 
     public void ApplyHeal(int amount)
     {
@@ -66,7 +66,6 @@ public class Character : MonoBehaviour
 
         //local effects
         UpdateHpBar();
-
     }
 
     [PunRPC]
