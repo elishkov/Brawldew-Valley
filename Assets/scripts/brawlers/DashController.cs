@@ -7,40 +7,58 @@ using UnityEngine.InputSystem;
 
 public class DashController : MonoBehaviour
 {
+    // dependencies
     private PhotonView view;
     private Character character;
+    private Rigidbody2D rigidbody2d;
+    private TrailRenderer trailRenderer;    
     private MovementController movementController;
-    private float lastDashTime = 0;
-    private bool dashing;
+
     
-    private Vector2 lastMotionVector;
-    private float dashDistanceRemaining;
-    
-    [SerializeField] private Transform dashEffect;
-    
+    // inputs
     [SerializeField] private float dashCooldownDuration;
-    [SerializeField] private float dashEffectWidth;
-    [SerializeField] private float dashSpeed;
-    [SerializeField] private float dashDistance;
+    [SerializeField] private float dashVelocity;
     [SerializeField] private float dashDuration;
-    
-    // Start is called before the first frame update
+    [SerializeField] private bool dynamicDashDirectionUpdate = true;
+
+    // collisions
+    private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    public float collisionOffset = 0.02f;
+    public ContactFilter2D movementFilter;
+
+    // dash controls
+    private Vector2 dashDirection;
+    private bool isDashing = false;
+    private bool canDash = true;
+    private bool dashing;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         character = GetComponent<Character>();
         movementController = GetComponent<MovementController>();
+        trailRenderer = GetComponent<TrailRenderer>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (dashDistanceRemaining > 0)
+        if (dynamicDashDirectionUpdate)
         {
-            var dashPerFrame = Time.fixedDeltaTime * dashDistance / dashDuration ;
-            dashDistanceRemaining -= dashPerFrame;
-            var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * dashPerFrame;
-            transform.position += dashVector;            
+            dashDirection = movementController.facing;
+        }
+
+        // Check for potential collisions
+        int count = rigidbody2d.Cast(
+            dashDirection, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
+            movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
+            castCollisions, // List of collisions to store the found collisions into after the Cast is finished
+            dashVelocity * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+        
+        if (count == 0 && isDashing)
+        {
+            rigidbody2d.MovePosition(rigidbody2d.position + dashVelocity * Time.fixedDeltaTime * dashDirection);
         }
     }
     public void OnDash(InputAction.CallbackContext context)
@@ -52,46 +70,26 @@ public class DashController : MonoBehaviour
                 return;
             }
             dashing = context.action.triggered;
-            if (dashing)
-            {                
-                if (Time.time - lastDashTime > dashCooldownDuration)
-                {
-                    lastDashTime = Time.time;
-                    lastMotionVector = movementController.facing;
-                    GameManager.instance.dashCooldownIcon.StartCooldown(dashCooldownDuration);
 
-                    // show dash animation
-                    var beforeDashPosition = transform.position + ((Vector3)lastMotionVector * (dashEffectWidth/2));
-                    var x_scale = dashDistance / dashEffectWidth;
-                    
-                    var dash_object = PhotonNetwork.Instantiate(dashEffect.name, beforeDashPosition, Quaternion.identity);
-                    var dash_transform = dash_object.GetComponent<Transform>();
-                    dash_transform.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(lastMotionVector));
-                    dash_transform.localScale = new Vector3(x_scale, 1.5f, 1f);
-                                        
-                    //perform dash
-                    // alternative 1: gradual multi frame dash action
-                    //dashDistanceRemaining= dashDistance;
-                    
-                    // alternative 2: single dash action
-                    Dash(movementController.facing);
-                }
+            if (dashing && canDash)
+            {
+                isDashing = true;
+                canDash = false;
+                trailRenderer.emitting = true;
+                dashDirection = movementController.facing;
+
+                StartCoroutine(StopDashing());                
             }
         }
     }
 
-    public static float GetAngleFromVectorFloat(Vector3 dir)
+    private IEnumerator StopDashing()
     {
-        dir = dir.normalized;
-        float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        if (n < 0) n += 360;
-
-        return n;
-    }
-
-    private void Dash(Vector2 lastMotionVector)
-    {
-        var dashVector = new Vector3(lastMotionVector.x, lastMotionVector.y, 0).normalized * dashSpeed;
-        transform.position += dashVector;
+        yield return new WaitForSeconds(dashDuration);
+        trailRenderer.emitting = false;
+        isDashing = false;        
+        GameManager.instance.dashCooldownIcon.StartCooldownAnimation(dashCooldownDuration);        
+        yield return new WaitForSeconds(dashCooldownDuration);
+        canDash = true;
     }
 }

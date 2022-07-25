@@ -15,7 +15,7 @@ public class CooldownIcon : MonoBehaviour
         fill.fillAmount = 1f;
     }
 
-    public void StartCooldown(float duration)
+    public void StartCooldownAnimation(float duration)
     {
         fill.fillAmount = 0f;
         cooldownDuration = duration;
