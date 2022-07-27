@@ -8,7 +8,7 @@ public class MovementController : MonoBehaviour
 {
     [SerializeField] float m_speed = 4.0f;
     public Vector2 lastMotionVector = Vector2.zero;
-    public Vector2 facing = Vector2.zero;
+    public Vector2 facing = new(-1,0);
     
 
     private Rigidbody2D rigidbody2d;
@@ -20,9 +20,9 @@ public class MovementController : MonoBehaviour
     // collisions
     public ContactFilter2D movementFilter;
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    public float collisionOffset = 0.02f;
+    public float collisionOffset = 0.02f;    
+    public bool FacingLeft { get; private set; }
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,6 @@ public class MovementController : MonoBehaviour
         {
             spriteRenderer.flipX = lastMotionVector.x > 0;
         }
-
     }
 
     void FixedUpdate()
@@ -103,6 +102,11 @@ public class MovementController : MonoBehaviour
 
             // last motion vector should be updated on all clients
             view.RPC("UpdateLastMotionVector", RpcTarget.All, context.ReadValue<Vector2>());
+
+            if (lastMotionVector.x != 0)
+            {
+                FacingLeft = lastMotionVector.x < 0;
+            }
 
             // set animations
             if (lastMotionVector.x != 0 || lastMotionVector.y != 0) {

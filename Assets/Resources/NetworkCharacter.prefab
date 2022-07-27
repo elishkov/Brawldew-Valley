@@ -115,9 +115,9 @@ GameObject:
   - component: {fileID: 8929278379858697491}
   - component: {fileID: 554932149194550203}
   - component: {fileID: -3965726476071802635}
-  - component: {fileID: 8883850731022256113}
   - component: {fileID: 7715147973718637359}
   - component: {fileID: -8890431229251239326}
+  - component: {fileID: 8883850731022256113}
   m_Layer: 8
   m_Name: NetworkCharacter
   m_TagString: Player
@@ -203,9 +203,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 317b8365a4649ab459f6cb58ec8f9f18, type: 3}
+  m_Sprite: {fileID: 21300040, guid: 317b8365a4649ab459f6cb58ec8f9f18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.5, y: 1.5}
@@ -298,8 +298,8 @@ MonoBehaviour:
   baseMaxDamagePerHit: 20
   critChance: 0.03
   baseCritMultiplier: 2
-  offsetDistance: 0.5
-  sizeOfInteractableArea: 1.2
+  toolOffsetVector: {x: -0.27, y: 1}
+  sizeOfInteractableArea: 0.49
 --- !u!114 &5898831185689193694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,39 +496,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &8883850731022256113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2505625437845997187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 3
-    SynchronizeType: 1
-    Name: AnimState
-  - Type: 9
-    SynchronizeType: 1
-    Name: Attack
-  - Type: 9
-    SynchronizeType: 1
-    Name: Recover
-  - Type: 9
-    SynchronizeType: 1
-    Name: Hurt
-  - Type: 9
-    SynchronizeType: 1
-    Name: Death
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
 --- !u!114 &7715147973718637359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,6 +617,39 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!114 &8883850731022256113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505625437845997187}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 3
+    SynchronizeType: 1
+    Name: AnimState
+  - Type: 9
+    SynchronizeType: 1
+    Name: Attack
+  - Type: 9
+    SynchronizeType: 1
+    Name: Recover
+  - Type: 9
+    SynchronizeType: 1
+    Name: Hurt
+  - Type: 9
+    SynchronizeType: 1
+    Name: Death
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1001 &8460142542111178794
 PrefabInstance:
   m_ObjectHideFlags: 0

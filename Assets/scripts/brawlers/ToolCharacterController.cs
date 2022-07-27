@@ -15,18 +15,22 @@ public class ToolCharacterController : MonoBehaviour
     [SerializeField] float critChance = 0.03f;
     [SerializeField] float baseCritMultiplier = 2;
 
-    [SerializeField] float offsetDistance = 1f;
+    [SerializeField] Vector2 toolOffsetVector= new(1f,1f);
     [SerializeField] float sizeOfInteractableArea = 1.2f;
 
     private bool attacking = false;
 
-    private void Awake() 
+    private void Start()
     {
         character = GetComponent<Character>();
         movementController = GetComponent<MovementController>();
         rgbd2 = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
+    }
+
+    private void Awake() 
+    {
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -49,15 +53,16 @@ public class ToolCharacterController : MonoBehaviour
 
     private void Update()
     {
-       
     }
 
     private void UseTool()
     {
-        Vector2 position = rgbd2.position + movementController.lastMotionVector * offsetDistance;
+        Vector2 position = rgbd2.position + toolOffsetVector + getSpriteDirectionOffset();
         
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea);
-
+        Debug.DrawLine(position, position * sizeOfInteractableArea);
+        Debug.Log(position);
+        Debug.Log(position * sizeOfInteractableArea);
         foreach (Collider2D c in colliders)
         {
             ToolHit hit = c.GetComponent<ToolHit>();
@@ -81,9 +86,19 @@ public class ToolCharacterController : MonoBehaviour
                 break;
             }
         }
-
-
-
     }
 
+    void OnDrawGizmosSelected()
+    {
+        Start();
+        Vector2 position = rgbd2.position + toolOffsetVector + getSpriteDirectionOffset();
+        Gizmos.DrawWireSphere(position, sizeOfInteractableArea);
+    }
+
+    private Vector2 getSpriteDirectionOffset()
+    {
+        // default sprite position is left facing
+        // when facing right a slight offset is required
+        return movementController.FacingLeft ? new(0, 0) : new(0.5f, 0);
+    }
 }
