@@ -75,7 +75,8 @@ public class DashController : MonoBehaviour
             {
                 isDashing = true;
                 canDash = false;
-                trailRenderer.emitting = true;
+                //trailRenderer.emitting = true;
+                view.RPC("UpdateTrailEmissions", RpcTarget.AllBuffered, true);
                 dashDirection = movementController.facing;
 
                 StartCoroutine(StopDashing());                
@@ -83,10 +84,17 @@ public class DashController : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    public void UpdateTrailEmissions(bool emitting)
+    {
+        trailRenderer.emitting = emitting;
+    }
+
     private IEnumerator StopDashing()
     {
         yield return new WaitForSeconds(dashDuration);
-        trailRenderer.emitting = false;
+        //trailRenderer.emitting = false;
+        view.RPC("UpdateTrailEmissions", RpcTarget.AllBuffered, false);
         isDashing = false;        
         GameManager.instance.dashCooldownIcon.StartCooldownAnimation(dashCooldownDuration);        
         yield return new WaitForSeconds(dashCooldownDuration);
