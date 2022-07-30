@@ -65,14 +65,14 @@ public class Character : MonoBehaviour
         view.RPC("Heal", RpcTarget.AllBuffered, amount);
 
         //local effects
-        UpdateHpBar();
+        UpdateHpBars();
     }
 
     [PunRPC]
     public void Heal(int amount)
     {
         hp.Add(amount);
-        if (floatingHPBar != null) floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
+        UpdateHpBars();
     }
 
     public void FullHeal()
@@ -114,9 +114,7 @@ public class Character : MonoBehaviour
     public void TakeDamage(int amount, bool isCrit)
     {
         hp.Subtract(amount);
-        UpdateHpBar();
-
-        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
+        UpdateHpBars();        
 
         if (hp.curVal <= 0)
         {
@@ -146,16 +144,17 @@ public class Character : MonoBehaviour
     {
         is_dead = false;
         hp.SetToMax();
-        UpdateHpBar();
+        UpdateHpBars();
         animator.SetTrigger("Recover");
     }
 
-    private void UpdateHpBar()
+    private void UpdateHpBars()
     {
         if (mainHealthBar != null)
         {
             mainHealthBar.Set(hp.maxVal, hp.curVal);
         }
+        if (floatingHPBar != null) floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 
     public void ShowFloatingText(long amount, bool isCrit)
@@ -184,6 +183,6 @@ public class Character : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
-        UpdateHpBar();
+        UpdateHpBars();
     }
 }

@@ -10,13 +10,14 @@ public class ToolCharacterController : MonoBehaviour
     private Animator animator;
     private PhotonView view;
 
+    
     [SerializeField] long baseMinDamagePerHit = 10;
     [SerializeField] long baseMaxDamagePerHit = 20;
     [SerializeField] float critChance = 0.03f;
     [SerializeField] float baseCritMultiplier = 2;
-
     [SerializeField] Vector2 toolOffsetVector= new(1f,1f);
     [SerializeField] float sizeOfInteractableArea = 1.2f;
+    [SerializeField] LayerMask hurtLayers;
 
     private bool attacking = false;
 
@@ -59,10 +60,7 @@ public class ToolCharacterController : MonoBehaviour
     {
         Vector2 position = rgbd2.position + toolOffsetVector + getSpriteDirectionOffset();
         
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea);
-        Debug.DrawLine(position, position * sizeOfInteractableArea);
-        Debug.Log(position);
-        Debug.Log(position * sizeOfInteractableArea);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea, hurtLayers);
         foreach (Collider2D c in colliders)
         {
             ToolHit hit = c.GetComponent<ToolHit>();
@@ -71,20 +69,25 @@ public class ToolCharacterController : MonoBehaviour
                 hit.Hit();
                 break;
             }
-            Character target = c.GetComponent<Character>();
-            if (target != null && target != character && !target.is_dead)
+            Damagable target = c.GetComponent<Damagable>();
+            if (target != null)
             {
-                float actualCritMultiplier = 1;
-                var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
-                var crit_happened = Random.Range(0f, 1f) < critChance;
-                if (crit_happened)
+                Character targetCharacter = target.Character;
+                if (targetCharacter != null && targetCharacter != character && !targetCharacter.is_dead)
                 {
-                    actualCritMultiplier = baseCritMultiplier;
+                    float actualCritMultiplier = 1;
+                    var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
+                    var crit_happened = Random.Range(0f, 1f) < critChance;
+                    if (crit_happened)
+                    {
+                        actualCritMultiplier = baseCritMultiplier;
+                    }
+                    var actual_damage = (int)(actual_base_damage * actualCritMultiplier);
+                    targetCharacter.ApplyDamage(actual_damage, crit_happened);
+                    break;
                 }
-                var actual_damage = (int)( actual_base_damage * actualCritMultiplier);
-                target.ApplyDamage(actual_damage, crit_happened);
-                break;
             }
+            
         }
     }
 
