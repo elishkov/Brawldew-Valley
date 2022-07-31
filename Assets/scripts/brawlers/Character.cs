@@ -150,10 +150,7 @@ public class Character : MonoBehaviour
 
     private void UpdateHpBars()
     {
-        if (mainHealthBar != null)
-        {
-            mainHealthBar.Set(hp.maxVal, hp.curVal);
-        }
+        if (mainHealthBar != null) mainHealthBar.Set(hp.maxVal, hp.curVal);
         if (floatingHPBar != null) floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 

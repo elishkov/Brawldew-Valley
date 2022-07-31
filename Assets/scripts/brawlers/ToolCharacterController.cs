@@ -19,7 +19,7 @@ public class ToolCharacterController : MonoBehaviour
     [SerializeField] float sizeOfInteractableArea = 1.2f;
     [SerializeField] LayerMask hurtLayers;
 
-    private bool attacking = false;
+    private bool attacking = false;    
 
     private void Start()
     {
@@ -69,26 +69,31 @@ public class ToolCharacterController : MonoBehaviour
                 hit.Hit();
                 break;
             }
-            Damagable target = c.GetComponent<Damagable>();
-            if (target != null)
+
+            if (c.TryGetComponent<Damagable>(out Damagable target))
             {
                 Character targetCharacter = target.Character;
                 if (targetCharacter != null && targetCharacter != character && !targetCharacter.is_dead)
                 {
-                    float actualCritMultiplier = 1;
-                    var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
-                    var crit_happened = Random.Range(0f, 1f) < critChance;
-                    if (crit_happened)
-                    {
-                        actualCritMultiplier = baseCritMultiplier;
-                    }
-                    var actual_damage = (int)(actual_base_damage * actualCritMultiplier);
+                    CalculateDamage(out bool crit_happened, out int actual_damage);
                     targetCharacter.ApplyDamage(actual_damage, crit_happened);
                     break;
                 }
             }
             
         }
+    }
+
+    private void CalculateDamage(out bool crit_happened, out int actual_damage)
+    {
+        float actualCritMultiplier = 1;
+        var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
+        crit_happened = Random.Range(0f, 1f) < critChance;
+        if (crit_happened)
+        {
+            actualCritMultiplier = baseCritMultiplier;
+        }
+        actual_damage = (int)(actual_base_damage * actualCritMultiplier);
     }
 
     void OnDrawGizmosSelected()
