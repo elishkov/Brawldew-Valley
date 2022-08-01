@@ -8,24 +8,26 @@ public class PickupItem : MonoBehaviour
     [SerializeField] float speed = 3f;
     [SerializeField] float pickupDistance= 1.5f;
     [SerializeField] float ttl = 10f;
-    float ttl_remaining;
 
     protected PhotonView view;
 
     private void Start()
     {
-        ttl_remaining = ttl;
         view = GetComponent<PhotonView>();
+        StartCoroutine(DestroyAfterTtl());
+    }
+
+    private IEnumerator DestroyAfterTtl()
+    {
+        if (ttl > 0)
+        {
+            yield return new WaitForSeconds(ttl);
+            Destroy(gameObject);
+        }
     }
 
     private void Update()
     {
-        ttl_remaining -= Time.deltaTime;
-        if (ttl!= 0 && ttl_remaining < 0)
-        {
-            Destroy(gameObject);
-        }
-
         float minDistance = float.MaxValue;
         float distance;
         GameObject closestPlayer = null;

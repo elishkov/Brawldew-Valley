@@ -46,8 +46,10 @@ public class PlayerSpawner : MonoBehaviour
         Vector3 position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
         GameObject networkCharacterGO = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
         var networkCharacter = networkCharacterGO.GetComponent<NetworkCharacter>();
+        var character = networkCharacter.GetComponent<Character>();
+        character.mainHealthBar = gameManager.mainHealthBar;
+        character.charName = PhotonNetwork.NickName;
         gameManager.vcam.Follow = networkCharacter.transform;
         gameManager.players.Add(networkCharacterGO);
-        print($"gameManager.players: {gameManager.players.Capacity}");
     }
 }

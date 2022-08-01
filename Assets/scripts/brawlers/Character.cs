@@ -50,12 +50,14 @@ public class Character : MonoBehaviour
     private PhotonView view;
 
     [SerializeField] private GameObject floatingHPBar;
+    [SerializeField] public MainHealthBar mainHealthBar;
     [SerializeField] float horizontal_floating_txt_scatter = 0.2f;
     [SerializeField] Color text_color;
-    private float critFontSize = 7f;
-    private float normalFontSize = 3f;
+
+    private readonly float critFontSize = 7f;
+    private readonly float normalFontSize = 3f;
     private Color critColor = Color.yellow;
-    
+    internal string charName;
 
     public void ApplyHeal(int amount)
     {
@@ -63,14 +65,14 @@ public class Character : MonoBehaviour
         view.RPC("Heal", RpcTarget.AllBuffered, amount);
 
         //local effects
-        UpdateHpBar();
-
+        UpdateHpBars();
     }
 
     [PunRPC]
     public void Heal(int amount)
     {
         hp.Add(amount);
+        UpdateHpBars();
     }
 
     public void FullHeal()
@@ -85,7 +87,7 @@ public class Character : MonoBehaviour
         // network effect
         view.RPC("TakeDamage", RpcTarget.AllBuffered, amount, isCrit);
 
-        // local effect
+        // local effects
         ShowFloatingText(amount, isCrit);
     }
 
@@ -100,7 +102,7 @@ public class Character : MonoBehaviour
         return amount;
     }
 
-    public void ReportKill()
+    public void ReportKilled()
     {
         if (!view.IsMine)
         {
@@ -112,8 +114,7 @@ public class Character : MonoBehaviour
     public void TakeDamage(int amount, bool isCrit)
     {
         hp.Subtract(amount);
-
-        UpdateHpBar();
+        UpdateHpBars();        
 
         if (hp.curVal <= 0)
         {
@@ -124,7 +125,7 @@ public class Character : MonoBehaviour
         if (is_dead == true)
         {
             animator.SetTrigger("Death");            
-            ReportKill();
+            ReportKilled();
         }
         else
         {
@@ -139,23 +140,18 @@ public class Character : MonoBehaviour
         
     }
 
-    [PunRPC]
     public void Recover()
     {
         is_dead = false;
         hp.SetToMax();
-        UpdateHpBar();
+        UpdateHpBars();
         animator.SetTrigger("Recover");
     }
 
-    private void UpdateHpBar()
+    private void UpdateHpBars()
     {
-        if (view is null || view.IsMine)
-        {
-            GameManager.instance.mainHealthBar.Set(hp.maxVal, hp.curVal);
-        }
-
-        if (floatingHPBar != null) floatingHPBar?.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
+        if (mainHealthBar != null) mainHealthBar.Set(hp.maxVal, hp.curVal);
+        if (floatingHPBar != null) floatingHPBar.GetComponent<StatusBar>().Set(hp.maxVal, hp.curVal);
     }
 
     public void ShowFloatingText(long amount, bool isCrit)
@@ -184,11 +180,6 @@ public class Character : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
-        UpdateHpBar();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        UpdateHpBars();
     }
 }

@@ -10,23 +10,28 @@ public class ToolCharacterController : MonoBehaviour
     private Animator animator;
     private PhotonView view;
 
+    
     [SerializeField] long baseMinDamagePerHit = 10;
     [SerializeField] long baseMaxDamagePerHit = 20;
     [SerializeField] float critChance = 0.03f;
     [SerializeField] float baseCritMultiplier = 2;
-
-    [SerializeField] float offsetDistance = 1f;
+    [SerializeField] Vector2 toolOffsetVector= new(1f,1f);
     [SerializeField] float sizeOfInteractableArea = 1.2f;
+    [SerializeField] LayerMask hurtLayers;
 
-    private bool attacking = false;
+    private bool attacking = false;    
 
-    private void Awake() 
+    private void Start()
     {
         character = GetComponent<Character>();
         movementController = GetComponent<MovementController>();
         rgbd2 = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         view = GetComponent<PhotonView>();
+    }
+
+    private void Awake() 
+    {
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -49,15 +54,13 @@ public class ToolCharacterController : MonoBehaviour
 
     private void Update()
     {
-       
     }
 
     private void UseTool()
     {
-        Vector2 position = rgbd2.position + movementController.lastMotionVector * offsetDistance;
+        Vector2 position = rgbd2.position + toolOffsetVector + getSpriteDirectionOffset();
         
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea);
-
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea, hurtLayers);
         foreach (Collider2D c in colliders)
         {
             ToolHit hit = c.GetComponent<ToolHit>();
@@ -66,24 +69,44 @@ public class ToolCharacterController : MonoBehaviour
                 hit.Hit();
                 break;
             }
-            Character target = c.GetComponent<Character>();
-            if (target != null && target != character && !target.is_dead)
+
+            if (c.TryGetComponent<Damagable>(out Damagable target))
             {
-                float actualCritMultiplier = 1;
-                var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
-                var crit_happened = Random.Range(0f, 1f) < critChance;
-                if (crit_happened)
+                Character targetCharacter = target.Character;
+                if (targetCharacter != null && targetCharacter != character && !targetCharacter.is_dead)
                 {
-                    actualCritMultiplier = baseCritMultiplier;
+                    CalculateDamage(out bool crit_happened, out int actual_damage);
+                    targetCharacter.ApplyDamage(actual_damage, crit_happened);
+                    break;
                 }
-                var actual_damage = (int)( actual_base_damage * actualCritMultiplier);
-                target.ApplyDamage(actual_damage, crit_happened);
-                break;
             }
+            
         }
-
-
-
     }
 
+    private void CalculateDamage(out bool crit_happened, out int actual_damage)
+    {
+        float actualCritMultiplier = 1;
+        var actual_base_damage = (long)Random.Range(baseMinDamagePerHit, baseMaxDamagePerHit);
+        crit_happened = Random.Range(0f, 1f) < critChance;
+        if (crit_happened)
+        {
+            actualCritMultiplier = baseCritMultiplier;
+        }
+        actual_damage = (int)(actual_base_damage * actualCritMultiplier);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Start();
+        Vector2 position = rgbd2.position + toolOffsetVector + getSpriteDirectionOffset();
+        Gizmos.DrawWireSphere(position, sizeOfInteractableArea);
+    }
+
+    private Vector2 getSpriteDirectionOffset()
+    {
+        // default sprite position is left facing
+        // when facing right a slight offset is required
+        return movementController.FacingLeft ? new(0, 0) : new(0.5f, 0);
+    }
 }
