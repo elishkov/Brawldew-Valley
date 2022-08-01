@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e7bc5420753f94683ff1a53f4bcc89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtCollider: {fileID: 4710849932769446961}
+  hurtCollider: {fileID: 1293486463176270587}
   characterCollider: {fileID: 1573756686166715185}
   characterBlockerCollider: {fileID: 513313636848325608}
 --- !u!1 &2505625437845997187
@@ -664,9 +664,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7708025288334116260}
-  - component: {fileID: 4710849932769446961}
   - component: {fileID: 6979032020000224490}
   - component: {fileID: 1293486463176270587}
+  - component: {fileID: 4642048191849855694}
   m_Layer: 10
   m_Name: HurtBox
   m_TagString: Untagged
@@ -689,32 +689,6 @@ Transform:
   m_Father: {fileID: 7602233846451085637}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4710849932769446961
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4202308031794858824}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: 0.65}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.61, y: 1.27}
-  m_EdgeRadius: 0
 --- !u!114 &6979032020000224490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,6 +732,18 @@ PolygonCollider2D:
       - {x: -0.23378071, y: 0.109708905}
       - {x: 0.21692352, y: 0.109709024}
       - {x: 0.24304748, y: 0.941168}
+--- !u!114 &4642048191849855694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202308031794858824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fe63acef51e4f4593d5049f47e89ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8460142542111178794
 PrefabInstance:
   m_ObjectHideFlags: 0

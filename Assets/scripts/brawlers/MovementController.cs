@@ -78,19 +78,17 @@ public class MovementController : MonoBehaviour
             castCollisions, // List of collisions to store the found collisions into after the Cast is finished
             m_speed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
-        if (count == 0)
+        bool performMove = count == 0;
+        if (performMove)
         {
             
             Vector2 moveVector = direction * m_speed * Time.fixedDeltaTime;
 
             // No collisions
-            rigidbody2d.MovePosition(rigidbody2d.position + moveVector);
-            return true;
+            rigidbody2d.MovePosition(rigidbody2d.position + moveVector);            
         }
-        else
-        {
-            return false;
-        }
+
+        return performMove;
     }
 
     public void OnMove(InputAction.CallbackContext context)
