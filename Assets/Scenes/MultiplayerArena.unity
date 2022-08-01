@@ -2205,6 +2205,18 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[4336].second.m_TileSpriteIndex
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 63246767330045669, guid: 430518d4e17c8a848a5d23e1d738fc75, type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 63246767330045669, guid: 430518d4e17c8a848a5d23e1d738fc75, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 63246767330045669, guid: 430518d4e17c8a848a5d23e1d738fc75, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1749950361
+      objectReference: {fileID: 0}
     - target: {fileID: 63246768299541348, guid: 430518d4e17c8a848a5d23e1d738fc75, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4602,7 +4614,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5, y: 1}
+    m_SensorSize: {x: 1.3552833, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
