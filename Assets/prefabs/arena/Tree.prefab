@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 301125102, guid: e4833a3d670c28c4b9d6720b90e50587, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,4 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupDrop: {fileID: 4696953098117292903, guid: 60d84478d001f11418c4d56e6c4714dd, type: 3}
   dropCount: 5
+  dropCountVariance: 8
   spread: 2
