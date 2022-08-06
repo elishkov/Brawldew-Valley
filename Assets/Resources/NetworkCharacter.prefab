@@ -742,14 +742,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 824530888488110692, guid: 8093a6909bf462c43beec25244318138, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1518946229
-      objectReference: {fileID: 0}
     - target: {fileID: 2016079131552893503, guid: 8093a6909bf462c43beec25244318138, type: 3}
       propertyPath: follow
       value: 
       objectReference: {fileID: 2505625437845997187}
+    - target: {fileID: 4320274007826587903, guid: 8093a6909bf462c43beec25244318138, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6211786121455931162, guid: 8093a6909bf462c43beec25244318138, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -835,13 +835,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8942281329175463659, guid: 8093a6909bf462c43beec25244318138, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 44d5d70fef2a262478f4712a1fa2e564, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8942281329589044763, guid: 8093a6909bf462c43beec25244318138, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 44d5d70fef2a262478f4712a1fa2e564, type: 3}
+      objectReference: {fileID: 21300000, guid: f6e171210898de249af26bb9a06fd0c4, type: 3}
+    - target: {fileID: 8942281329589044763, guid: 8093a6909bf462c43beec25244318138, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8093a6909bf462c43beec25244318138, type: 3}
 --- !u!1 &680373039807219251 stripped

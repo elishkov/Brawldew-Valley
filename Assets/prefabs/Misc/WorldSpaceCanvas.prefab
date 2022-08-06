@@ -88,9 +88,17 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3076095140547251858, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3076095141212065376, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
       propertyPath: m_Name
       value: NetworkFloatingHPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076095141212065376, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3076095141212065377, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
       propertyPath: m_Pivot.x
@@ -175,6 +183,10 @@ PrefabInstance:
     - target: {fileID: 3076095141212065377, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076095141212065378, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5571986347696751174, guid: 3bbfb6ee19ff854489873f8da3756c6e, type: 3}
       propertyPath: follow

@@ -59,19 +59,31 @@ public class ToolCharacterController : MonoBehaviour
     private void UseTool()
     {
         Vector2 position = rgbd2.position + toolOffsetVector + getSpriteDirectionOffset();
-        
+
+        //Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea, toolLayers);
+        //foreach (Collider2D c in colliders)
+        //{
+        //    ToolHit hit = c.GetComponent<ToolHit>();
+        //    if (hit != null)
+        //    {
+        //        hit.Hit();
+        //        break;
+        //    }
+        //}
+
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfInteractableArea, hurtLayers);
         foreach (Collider2D c in colliders)
         {
-            ToolHit hit = c.GetComponent<ToolHit>();
-            if (hit != null)
-            {
-                hit.Hit();
-                break;
-            }
-
             if (c.TryGetComponent<Damagable>(out Damagable target))
             {
+                ToolHit hit = target.toolTarget;
+                if (hit != null)
+                {
+                    hit.Hit();
+                    break;
+                }
+
                 Character targetCharacter = target.Character;
                 if (targetCharacter != null && targetCharacter != character && !targetCharacter.is_dead)
                 {
