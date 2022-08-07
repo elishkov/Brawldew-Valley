@@ -701,6 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 4013467692091805045}
+  toolTarget: {fileID: 0}
 --- !u!60 &1293486463176270587
 PolygonCollider2D:
   m_ObjectHideFlags: 0
