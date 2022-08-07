@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public GameObject pickups;
     [SerializeField] public GameObject destructibleTerrain;
-    [SerializeField] public List<GameObject> players;
     [SerializeField] public OnScreenMessageSystem onScreenMessageSystem;
     [SerializeField] public MainHealthBar mainHealthBar;
     [SerializeField] public Cinemachine.CinemachineVirtualCamera vcam;    
     [SerializeField] public CooldownIcon dashCooldownIcon;
     [SerializeField] public SingleDigitScorePanel singleDigitScorePanel;
+    [SerializeField] public List<GameObject> players;
+
 }

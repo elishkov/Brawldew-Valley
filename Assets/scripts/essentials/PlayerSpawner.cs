@@ -15,9 +15,7 @@ public class PlayerSpawner : MonoBehaviour
     public float maxY;
 
     public GameManager gameManager;
-    public List<Text> healthBars;
-    public GameObject fountain;
-
+    
 
     void Start()
     {
@@ -38,8 +36,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SetupArena()
     {
-        PhotonNetwork.Instantiate(gameManager.pickups.name, Vector3.zero, Quaternion.identity);
-        PhotonNetwork.Instantiate(gameManager.destructibleTerrain.name, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate($"Arena\\{gameManager.pickups.name}", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate($"Arena\\{gameManager.destructibleTerrain.name}", Vector3.zero, Quaternion.identity);
     }
 
     private void CreateAndSetupPlayer()
