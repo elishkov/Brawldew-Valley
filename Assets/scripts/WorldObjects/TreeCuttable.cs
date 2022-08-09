@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class TreeCuttable : ToolHit
@@ -26,12 +27,9 @@ public class TreeCuttable : ToolHit
             Vector3 drop_position = transform.position;
             drop_position.x += spread * UnityEngine.Random.value - spread / 2;
             drop_position.y += spread * UnityEngine.Random.value - spread / 2;
-            GameObject go = Instantiate(pickupDrop);
-            go.transform.position = drop_position;
+            PhotonNetwork.Instantiate(Path.Combine("Arena", pickupDrop.name), drop_position, Quaternion.identity);            
         }
-        view.RPC("RemoteDestroy", RpcTarget.OthersBuffered);
-        Destroy(gameObject);
-
+        view.RPC("RemoteDestroy", RpcTarget.AllBuffered);
     }
 
     [PunRPC]

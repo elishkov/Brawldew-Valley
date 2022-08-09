@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,8 +37,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SetupArena()
     {
-        PhotonNetwork.Instantiate($"Arena\\{gameManager.pickups.name}", Vector3.zero, Quaternion.identity);
-        PhotonNetwork.Instantiate($"Arena\\{gameManager.destructibleTerrain.name}", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("Arena", gameManager.pickups.name), Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("Arena", gameManager.destructibleTerrain.name), Vector3.zero, Quaternion.identity);
     }
 
     private void CreateAndSetupPlayer()
