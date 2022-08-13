@@ -312,10 +312,6 @@ MonoBehaviour:
   minY: 0
   maxY: 1
   gameManager: {fileID: 2122824043}
-  healthBars:
-  - {fileID: 0}
-  - {fileID: 0}
-  fountain: {fileID: 332090634}
 --- !u!4 &291754633
 Transform:
   m_ObjectHideFlags: 0
@@ -331,11 +327,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &332090634 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7011725832896354002, guid: 597156781d9d909489026445b80f4ae7, type: 3}
-  m_PrefabInstance: {fileID: 7011725833228049368}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &332090637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7011725832896354005, guid: 597156781d9d909489026445b80f4ae7, type: 3}
@@ -1136,7 +1127,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.2233009, y: 1}
+    m_SensorSize: {x: 1.4061489, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1237,13 +1228,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 866204697426465603, guid: 1eca28f31c0a4be4fb888c9d7ef2330e, type: 3}
     - target: {fileID: 8649934388381261081, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
+      propertyPath: MultiDigitScorePanel
+      value: 
+      objectReference: {fileID: 612357006757168739}
+    - target: {fileID: 8649934388381261081, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
       propertyPath: onScreenMessageSystem
       value: 
       objectReference: {fileID: 1734895756}
     - target: {fileID: 8649934388381261081, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
       propertyPath: singleDigitScorePanel
       value: 
-      objectReference: {fileID: 612357006757168739}
+      objectReference: {fileID: 0}
     - target: {fileID: 8649934388381261086, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1368,13 +1363,13 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
 --- !u!114 &612357006757168739 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 254265567, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 219649468861320980, guid: 072177e25c4e6ea42bb17fc5e0de111e, type: 3}
   m_PrefabInstance: {fileID: 612357006757168738}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 733b1c81ec6e34f46a8003852f79b947, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d7b581f27648a747931fa0f1b968cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &2092467325473110394 stripped
