@@ -14,10 +14,4 @@ public class HealthPickup : PickupItem
         // network effect
         view.RPC("DeletePickup", RpcTarget.AllBuffered);
     }
-
-    [PunRPC]
-    protected virtual void DeletePickup()
-    {
-        Destroy(gameObject);
-    }
 }

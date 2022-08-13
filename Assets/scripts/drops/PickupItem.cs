@@ -61,6 +61,12 @@ public class PickupItem : MonoBehaviour
 
     protected virtual void Pickup(Character character)
     {
+        view.RPC("DeletePickup", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    protected virtual void DeletePickup()
+    {
         Destroy(gameObject);
     }
 
