@@ -1232,6 +1232,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 612357006757168739}
     - target: {fileID: 8649934388381261081, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
+      propertyPath: multiDigitScorePanel
+      value: 
+      objectReference: {fileID: 612357006757168739}
+    - target: {fileID: 8649934388381261081, guid: 2bbcac12c5d091d4cb7949240745ebb4, type: 3}
       propertyPath: onScreenMessageSystem
       value: 
       objectReference: {fileID: 1734895756}

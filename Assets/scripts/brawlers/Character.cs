@@ -106,7 +106,7 @@ public class Character : MonoBehaviour
     {
         if (!view.IsMine)
         {
-            GameManager.instance.singleDigitScorePanel.IncreaseScore();
+            GameManager.instance.multiDigitScorePanel.IncreaseScore();
         }
     }
 

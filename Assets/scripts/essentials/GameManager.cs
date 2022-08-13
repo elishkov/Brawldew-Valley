@@ -17,8 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public MainHealthBar mainHealthBar;
     [SerializeField] public Cinemachine.CinemachineVirtualCamera vcam;    
     [SerializeField] public CooldownIcon dashCooldownIcon;
-    [SerializeField] public SingleDigitScorePanel singleDigitScorePanel;
-    [SerializeField] public MultiDigitScorePanel MultiDigitScorePanel;
+    [SerializeField] public MultiDigitScorePanel multiDigitScorePanel;
     [SerializeField] public List<GameObject> players;
 
 }
